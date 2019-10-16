@@ -25,7 +25,13 @@ namespace Game
 		{
 			InitializeComponent();
 
-			Board board = new Board(Board.Layouts.FourByFour);
+			List<ImageSource> tempFrontImages = new List<ImageSource>();
+			for (int i = 0; i < 100; i++)
+				tempFrontImages.Add(new BitmapImage());
+
+			ImageSource tempBackImage = new BitmapImage();
+
+			Board board = new Board(Board.Layouts.FourByFour, tempFrontImages, tempBackImage);
 			grid.Children.Add(board);
 		}
 	}
