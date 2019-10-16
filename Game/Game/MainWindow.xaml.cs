@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Game.Scripts;
 
 namespace Game
 {
@@ -23,6 +24,8 @@ namespace Game
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			Board board = new Board(Board.Layouts.FourByFour);
 		}
 	}
 }
