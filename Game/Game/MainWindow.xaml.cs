@@ -26,6 +26,7 @@ namespace Game
 			InitializeComponent();
 
 			Board board = new Board(Board.Layouts.FourByFour);
+			grid.Children.Add(board);
 		}
 	}
 }
