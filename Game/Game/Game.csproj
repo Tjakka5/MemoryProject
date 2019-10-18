@@ -57,7 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Scripts\Board.cs" />
     <Compile Include="Scripts\Card.cs" />
-    <Compile Include="Scripts\Game.cs" />
+    <Compile Include="Scripts\Session.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="Scripts\Utilities.cs" />
     <Page Include="MainWindow.xaml">
