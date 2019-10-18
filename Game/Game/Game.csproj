@@ -57,6 +57,10 @@
     </ApplicationDefinition>
     <Compile Include="Scripts\Board.cs" />
     <Compile Include="Scripts\Card.cs" />
+    <Compile Include="Scripts\Scheduler\Promise.cs" />
+    <Compile Include="Scripts\Scheduler\Scheduler.cs" />
+    <Compile Include="Scripts\Scheduler\YieldCommands\YieldCommand.cs" />
+    <Compile Include="Scripts\Scheduler\YieldCommands\YieldForSeconds.cs" />
     <Compile Include="Scripts\Utilities.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

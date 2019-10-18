@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Game.Scripts;
+using Game.Scripts.Scheduler;
+using Game.Scripts.Scheduler.YieldCommands;
 
 namespace Game
 {
@@ -33,6 +35,17 @@ namespace Game
 
 			Board board = new Board(Board.Layouts.FourByFour, tempFrontImages, tempBackImage);
 			grid.Children.Add(board);
+
+			Scheduler.Schedule(MyRoutine());
+		}
+
+		private IEnumerator<YieldCommand> MyRoutine()
+		{
+			int a = 2;
+			yield return new YieldForSeconds(3);
+			a = a + 5;
+			yield return new YieldForSeconds(5);
+			a = 10;
 		}
 	}
 }
