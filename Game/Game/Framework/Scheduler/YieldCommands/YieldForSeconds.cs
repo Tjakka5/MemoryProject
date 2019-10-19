@@ -1,4 +1,4 @@
-﻿namespace Game.Scripts.Scheduler.YieldCommands
+﻿namespace Framework.Scheduling
 {
 	public class YieldForSeconds : YieldCommand
 	{
@@ -9,10 +9,13 @@
 			timeLeft = delay;
 		}
 
-		public override bool Check(float deltaTime)
+		public override void Update(float deltaTime)
 		{
 			timeLeft = timeLeft - deltaTime;
+		}
 
+		public override bool Check()
+		{
 			return timeLeft <= 0;
 		}
 	}

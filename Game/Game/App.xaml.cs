@@ -1,4 +1,4 @@
-﻿using Game.Scripts.Scheduler;
+﻿using Framework.Scheduling;
 using System;
 using System.Diagnostics;
 using System.Windows;

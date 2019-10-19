@@ -57,11 +57,15 @@
     </ApplicationDefinition>
     <Compile Include="Scripts\Board.cs" />
     <Compile Include="Scripts\Card.cs" />
-    <Compile Include="Scripts\Scheduler\Promise.cs" />
-    <Compile Include="Scripts\Scheduler\Scheduler.cs" />
-    <Compile Include="Scripts\Scheduler\YieldCommands\YieldCommand.cs" />
-    <Compile Include="Scripts\Scheduler\YieldCommands\YieldForSeconds.cs" />
-    <Compile Include="Scripts\Utilities.cs" />
+    <Compile Include="Framework\Scheduler\Promise.cs" />
+    <Compile Include="Framework\Scheduler\Scheduler.cs" />
+    <Compile Include="Framework\Scheduler\VoidPromise.cs" />
+    <Compile Include="Framework\Scheduler\YieldCommands\YieldCommand.cs" />
+    <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseFinalize.cs" />
+    <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseFulfill.cs" />
+    <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseReject.cs" />
+    <Compile Include="Framework\Scheduler\YieldCommands\YieldForSeconds.cs" />
+    <Compile Include="Framework\Utilities.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

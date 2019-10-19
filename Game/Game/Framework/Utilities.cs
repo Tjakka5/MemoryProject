@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Game.Scripts
+namespace Framework
 {
 	public static class Utilities
 	{

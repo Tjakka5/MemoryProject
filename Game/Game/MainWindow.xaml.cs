@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Framework.Scheduling;
 using Game.Scripts;
-using Game.Scripts.Scheduler;
-using Game.Scripts.Scheduler.YieldCommands;
 
 namespace Game
 {
@@ -41,11 +40,26 @@ namespace Game
 
 		private IEnumerator<YieldCommand> MyRoutine()
 		{
-			int a = 2;
-			yield return new YieldForSeconds(3);
-			a = a + 5;
-			yield return new YieldForSeconds(5);
-			a = 10;
+			Promise<int> texturePromise = new Promise<int>();
+			Scheduler.Schedule(LoadTexture(texturePromise));
+
+			yield return new YieldForPromiseFinalize(texturePromise);
+
+			if (texturePromise.IsFulFilled())
+			{
+				int value = texturePromise.Value;
+			}
+			else
+			{
+				// Do something error-y
+			}
+		}
+
+		private IEnumerator<YieldCommand> LoadTexture(Promise<int> promise)
+		{
+			yield return new YieldForSeconds(2);
+
+			promise.Fulfill(10);
 		}
 	}
 }

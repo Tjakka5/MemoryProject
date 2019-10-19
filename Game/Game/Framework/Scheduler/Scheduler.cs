@@ -1,7 +1,6 @@
-﻿using Game.Scripts.Scheduler.YieldCommands;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Game.Scripts.Scheduler
+namespace Framework.Scheduling
 {
 	public static class Scheduler
 	{
@@ -9,24 +8,26 @@ namespace Game.Scripts.Scheduler
 
 		public static void Schedule(IEnumerator<YieldCommand> enumerator)
 		{
-			enumerators.Add(enumerator);
-			enumerator.MoveNext();
+			if (enumerator.MoveNext())
+				enumerators.Add(enumerator);
 		}
 
 		public static void Update(float deltaTime)
 		{
 			foreach (IEnumerator<YieldCommand> enumerator in enumerators.ToArray())
 			{
-				YieldCommand yieldCommand = enumerator.Current;
-				bool success = yieldCommand.Check(deltaTime);
-
-				if (success)
+				while (true)
 				{
-					bool inProgress = enumerator.MoveNext();
-					if (!inProgress)
+					enumerator.Current.Update(deltaTime);
+					if (!enumerator.Current.Check())
+						break;
+
+					if (!enumerator.MoveNext())
 					{
 						enumerator.Dispose();
 						enumerators.Remove(enumerator);
+
+						break;
 					}
 				}
 			}
