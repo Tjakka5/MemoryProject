@@ -60,13 +60,15 @@ namespace Game.Scripts
 			return newImagePool;
 		}
 
-		private Card MakeCard(ImageSource frontImage, ImageSource backImage)
+		private void MakeCard(int row, int col, ImageSource frontImage, ImageSource backImage)
 		{
 			Card card = new Card(frontImage, backImage);
 
-			cards.Add(card);
+			SetRow(card, row);
+			SetColumn(card, col);
 
-			return card;
+			cards.Add(card);
+			Children.Add(card);
 		}
 
 		private void MakeFourByFour(List<ImageSource> frontImages, ImageSource backImage) {
@@ -75,7 +77,10 @@ namespace Game.Scripts
 			MakeGrid(4, 4);
 
 			for (int i = 0; i < 16; i++)
-				MakeCard(frontImagePool[i], backImage);
+			{
+				MakeCard(i % 4, i / 4, frontImagePool[i], backImage);
+			}
+				
 		}
 
 		private void MakeFiveByFive(List<ImageSource> frontImages, ImageSource backImage) {
@@ -86,7 +91,7 @@ namespace Game.Scripts
 			for (int i = 0; i < 16; i++)
 			{
 				if (i == 12) continue; // Skip the center tile
-				MakeCard(frontImagePool[i], backImage);
+				MakeCard(0, 0, frontImagePool[i], backImage);
 			}
 		}
 
@@ -96,7 +101,7 @@ namespace Game.Scripts
 			MakeGrid(4, 6);
 
 			for (int i = 0; i < 24; i++)
-				MakeCard(frontImagePool[i], backImage);
+				MakeCard(0, 0, frontImagePool[i], backImage);
 		}
 
 		private void MakeSixBySix(List<ImageSource> frontImages, ImageSource backImage) {
@@ -105,7 +110,7 @@ namespace Game.Scripts
 			MakeGrid(6, 6);
 
 			for (int i = 0; i < 36; i++)
-				MakeCard(frontImagePool[i], backImage);
+				MakeCard(0, 0, frontImagePool[i], backImage);
 		}
 	}
 }

@@ -27,7 +27,7 @@ namespace Game
 			InitializeComponent();
 
             List<string> players = new List<string>() {
-                "Auke", "Maurice", "Hannah", "Boktor"
+                "Auke", "Maurice", "Hannah", "Justin"
             };
 
             Session session = new Session(grid, players, Board.Layouts.FourByFour);
