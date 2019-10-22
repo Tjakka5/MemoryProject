@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Game"
         mc:Ignorable="d"
         Title="MainWindow" Height="950" Width="950">
-    <Grid x:Name="grid">
-        
+    <Grid>
+        <Button x:Name="ButtonRestart" Content="Restart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="231" Height="107" Background="#FF5B80E8" FontSize="48"/>
+        <Grid x:Name="grid" HorizontalAlignment="Left" Height="753" Margin="10,158,0,0" VerticalAlignment="Top" Width="924"/>
     </Grid>
 </Window>

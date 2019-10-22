@@ -22,7 +22,9 @@ namespace Game
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+        private Session currentSession;
+
+        public MainWindow()
 		{
 			InitializeComponent();
 
@@ -30,7 +32,20 @@ namespace Game
                 "Auke", "Maurice", "Hannah", "Justin"
             };
 
-            Session session = new Session(grid, players, Board.Layouts.FourByFour);
+            currentSession = new Session(grid, players, Board.Layouts.FourByFour);
+
+
+            ButtonRestart.Click += ButtonRestartClicked;
         }
-	}
+
+        ~MainWindow()
+        {
+            ButtonRestart.Click -= ButtonRestartClicked;
+        }
+
+        public void ButtonRestartClicked(object sender, RoutedEventArgs e)
+        {
+            currentSession.Restart();
+        }
+    }
 }
