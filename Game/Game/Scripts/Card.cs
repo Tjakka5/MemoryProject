@@ -39,8 +39,8 @@ namespace Game.Scripts
 
 		public Card(ImageSource frontImageSource, ImageSource backImageSource)
 		{
-			frontImage = new Image {Source = new BitmapImage(new System.Uri("https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png"))};
-			backImage = new Image {Source = new BitmapImage(new System.Uri("https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png"))};
+			frontImage = new Image { Source = frontImageSource };
+			backImage = new Image { Source = backImageSource };
 
 			State = ViewState.FRONT;
 

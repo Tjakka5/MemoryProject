@@ -16,9 +16,9 @@ namespace Game.Scripts
 			// Make temporary images
 			List<ImageSource> tempFrontImages = new List<ImageSource>();
 			for (int i = 0; i < 100; i++)
-				tempFrontImages.Add(new BitmapImage(new Uri("Assets/Images/tempFrontImage.png", UriKind.Relative)));
+				tempFrontImages.Add(new BitmapImage(new Uri("Resources/Images/tempFrontImage.png", UriKind.Relative)));
 
-			ImageSource tempBackImage = new BitmapImage(new Uri("Assets/Images/tempBackImage.png", UriKind.Relative));
+			ImageSource tempBackImage = new BitmapImage(new Uri("Resources/Images/tempBackImage.png", UriKind.Relative));
 
             // Make board
             board = new Board(layout, tempFrontImages, tempBackImage);
