@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Game.Scripts
 {
@@ -13,7 +12,7 @@ namespace Game.Scripts
 			BACK,
 		}
 
-		private ViewState state = ViewState.FRONT;
+		private ViewState state = default;
 		private ViewState State
 		{
 			get { return state; }
@@ -42,7 +41,7 @@ namespace Game.Scripts
 			frontImage = new Image { Source = frontImageSource };
 			backImage = new Image { Source = backImageSource };
 
-			State = ViewState.FRONT;
+			State = ViewState.BACK;
 
 			AddChild(frontImage);
 			AddChild(backImage);

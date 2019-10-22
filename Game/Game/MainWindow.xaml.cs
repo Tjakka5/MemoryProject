@@ -34,7 +34,6 @@ namespace Game
 
             currentSession = new Session(grid, players, Board.Layouts.FourByFour);
 
-
             ButtonRestart.Click += ButtonRestartClicked;
         }
 
