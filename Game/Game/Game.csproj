@@ -68,6 +68,7 @@
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseReject.cs" />
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForSeconds.cs" />
     <Compile Include="Framework\Utilities.cs" />
+    <Compile Include="Scripts\Scoreboard.cs" />
     <Compile Include="Scripts\Session.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Page Include="MainWindow.xaml">

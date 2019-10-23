@@ -29,7 +29,7 @@ namespace Game
 			InitializeComponent();
 
             List<string> players = new List<string>() {
-                "Auke", "Maurice", "Hannah", "Justin"
+                "Auke", "Maurice", "Hannah", "Justin", "Marijke", "Pixel"
             };
 
             currentSession = new Session(grid, players, Board.Layouts.FourByFour);

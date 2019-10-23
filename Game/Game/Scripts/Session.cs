@@ -10,15 +10,15 @@ namespace Game.Scripts
     {
         private Grid grid = null;
 
-		private Board board = null;
-		private List<Player> players = null;
+        private Board board = null;
+        private List<Player> players = null;
 
         private List<string> currentPlayerNames = null;
         private Board.Layouts currentLayout = default;
 
 
         public Session(Grid grid, List<string> playerNames, Board.Layouts layout)
-		{
+        {
             this.grid = grid;
 
             currentPlayerNames = playerNames;
@@ -44,6 +44,11 @@ namespace Game.Scripts
             players = new List<Player>();
             foreach (string playerName in currentPlayerNames)
                 players.Add(new Player(playerName));
+
+            Scoreboard scoreboard = new Scoreboard(players);
+            grid.Children.Add(scoreboard);
+
+            
         }
 
         public void Restart()
