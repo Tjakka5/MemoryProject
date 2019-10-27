@@ -11,17 +11,17 @@ namespace Game.Scripts
 		private List<Player> players = null;
 
 		public Scoreboard(List<Player> players)
-        {
+		{
 			this.players = players;
 
-            foreach (Player player in players)
-            {
-                Label label = new Label();
+			foreach (Player player in players)
+			{
+				Label label = new Label();
 				label.Content = string.Format(displayFormat, player.Name, player.Score);
 
 				labelLookup[player] = label;
 
-                AddChild(label);
+				AddChild(label);
 
 				player.OnScoreUpdate += UpdateScoreVisual;
             }
@@ -40,5 +40,5 @@ namespace Game.Scripts
 			Label label = labelLookup[player];
 			label.Content = string.Format(displayFormat, player.Name, player.Score);
 		}
-    }
+	}
 }

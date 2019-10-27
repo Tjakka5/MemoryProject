@@ -7,13 +7,13 @@ using Framework.Scheduling;
 
 namespace Game.Scripts
 {
-    public class Player
-    {
+	public class Player
+	{
 		public delegate void OnScoreUpdateHandler(Player player);
 		public event OnScoreUpdateHandler OnScoreUpdate;
 
 		private int score = 0;
-        public int Score
+		public int Score
 		{
 			get { return score; }
 			set 
@@ -23,29 +23,29 @@ namespace Game.Scripts
 			}
 		}
 
-        public string Name {
-            get;
-            private set;
-        }
+		public string Name {
+			get;
+			private set;
+		}
 
 		// temp
 		Random rand = new Random();
 
 		public Player(string name)
-        {
-            Name = name;
+		{
+			Name = name;
 
-            Scheduler.Schedule(TempTest());
+			Scheduler.Schedule(TempTest());
 		}
 
 		// temp
-        private IEnumerator<YieldCommand> TempTest()
-        {
-            while (true)
-            {
-                Score = rand.Next(0, 100);
-                yield return new YieldForSeconds(1);
-            }
-        }
-    }
+		private IEnumerator<YieldCommand> TempTest()
+		{
+			while (true)
+			{
+				Score = rand.Next(0, 100);
+				yield return new YieldForSeconds(1);
+			}
+		}
+	}
 }
