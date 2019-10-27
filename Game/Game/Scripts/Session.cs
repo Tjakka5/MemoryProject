@@ -13,7 +13,10 @@ namespace Game.Scripts
 		private Label labelCurrentPlayer = null;
 
 		private Board board = null;
+		private Scoreboard scoreboard = null;
+
 		private List<Player> players = null;
+
 
 		private Player CurrentPlayer
 		{
@@ -61,7 +64,7 @@ namespace Game.Scripts
 			foreach (string playerName in initialPlayerNames)
 				players.Add(new Player(playerName));
 
-			Scoreboard scoreboard = new Scoreboard(players);
+			scoreboard = new Scoreboard(players);
 			grid.Children.Add(scoreboard);
 
 			CurrentPlayerIndex = 0;
@@ -80,7 +83,10 @@ namespace Game.Scripts
 
 		public void Stop()
 		{
+			CurrentPlayerIndex = 0;
+
 			grid.Children.Remove(board);
+			grid.Children.Remove(scoreboard);
 		}
 	}
 }
