@@ -6,10 +6,19 @@ namespace Game.Scripts
 {
 	public class Card : ItemsControl
 	{
+		public delegate void ClickHandler(Card card);
+		public event ClickHandler Clicked;
+
 		private enum ViewState
 		{
 			FRONT,
 			BACK,
+		}
+
+		public int Id
+		{
+			get;
+			private set;
 		}
 
 		private ViewState state = default;
@@ -47,14 +56,28 @@ namespace Game.Scripts
 			AddChild(backImage);
 		}
 
+		public void Show()
+		{
+			State = ViewState.FRONT;
+		}
+		public void Hide()
+		{
+			State = ViewState.BACK;
+		}
+
+		public void Remove()
+		{
+			Visibility = System.Windows.Visibility.Hidden;
+		}
+
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
 			base.OnMouseDown(e);
 
-			if (State == ViewState.FRONT)
-				State = ViewState.BACK;
-			else if (State == ViewState.BACK)
-				State = ViewState.FRONT;
+			if (e.ChangedButton != MouseButton.Left)
+				return;
+
+			Clicked?.Invoke(this);
 		}
 	}
 }

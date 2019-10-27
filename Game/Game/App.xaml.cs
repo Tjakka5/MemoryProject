@@ -16,9 +16,9 @@ namespace Game
 
 		public App()
 		{
-			timer = new DispatcherTimer
+			timer = new DispatcherTimer()
 			{
-				Interval = TimeSpan.FromTicks(1)
+				Interval = TimeSpan.FromSeconds(1 / 120)
 			};
 			timer.Tick += Tick;
 			timer.Start();

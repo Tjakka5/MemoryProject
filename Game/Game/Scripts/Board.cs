@@ -7,6 +7,9 @@ namespace Game.Scripts
 {
 	public class Board : Grid
 	{
+		public delegate void CardClickedHandler(Card card);
+		public event CardClickedHandler CardClicked;
+
 		public enum Layouts {
 			FourByFour,
 			FiveByFive,
@@ -33,6 +36,13 @@ namespace Game.Scripts
 				case Layouts.SixBySix:
 					MakeSixBySix(frontImages, backImage);
 					break;
+			}
+		}
+
+		~Board() {
+			foreach (Card card in cards)
+			{
+				card.Clicked -= OnCardClicked;
 			}
 		}
 
@@ -63,12 +73,18 @@ namespace Game.Scripts
 		private void MakeCard(int row, int col, ImageSource frontImage, ImageSource backImage)
 		{
 			Card card = new Card(frontImage, backImage);
+			card.Clicked += OnCardClicked;
 
 			SetRow(card, row);
 			SetColumn(card, col);
 
 			cards.Add(card);
 			Children.Add(card);
+		}
+
+		private void OnCardClicked(Card card)
+		{
+			CardClicked?.Invoke(card);
 		}
 
 		private void MakeFourByFour(List<ImageSource> frontImages, ImageSource backImage) {
