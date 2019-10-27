@@ -3,25 +3,36 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Framework.Scheduling;
 
 namespace Game.Scripts
 {
     public class Session
     {
-		private Player currentPlayer = null;
-
         private Grid grid = null;
+		private Label labelCurrentPlayer = null;
 
         private Board board = null;
         private List<Player> players = null;
 
-        private List<string> initialPlayerNames = null;
+		private int currentPlayerIndex = 0;
+		private int CurrentPlayerIndex {
+			get { return currentPlayerIndex; }
+			set {
+				currentPlayerIndex = value;
+
+				Player currentPlayer = players[CurrentPlayerIndex];
+				labelCurrentPlayer.Content = currentPlayer.Name;
+			}
+		}
+
+		private List<string> initialPlayerNames = null;
         private Board.Layouts initialLayout = default;
 
-
-        public Session(Grid grid, List<string> playerNames, Board.Layouts layout)
+        public Session(Grid grid, Label labelCurrentPlayer, List<string> playerNames, Board.Layouts layout)
         {
             this.grid = grid;
+			this.labelCurrentPlayer = labelCurrentPlayer;
 
             initialPlayerNames = playerNames;
             initialLayout = layout;
@@ -50,8 +61,22 @@ namespace Game.Scripts
             Scoreboard scoreboard = new Scoreboard(players);
             grid.Children.Add(scoreboard);
 
-            
+			CurrentPlayerIndex = 0;
+
+			Scheduler.Schedule(test());
         }
+
+		private IEnumerator<YieldCommand> test() {
+			while (true) {
+				yield return new YieldForSeconds(1);
+				EndTurn();
+			}
+		}
+
+		private void EndTurn()
+		{
+			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count;
+		}
 
         public void Restart()
         {

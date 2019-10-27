@@ -32,7 +32,7 @@ namespace Game
                 "Auke", "Maurice", "Hannah", "Justin", "Marijke", "Pixel"
             };
 
-            currentSession = new Session(grid, players, Board.Layouts.FourByFour);
+            currentSession = new Session(grid, LabelCurrentPlayer, players, Board.Layouts.FourByFour);
 
             ButtonRestart.Click += ButtonRestartClicked;
         }
