@@ -28,24 +28,9 @@ namespace Game.Scripts
 			private set;
 		}
 
-		// temp
-		Random rand = new Random();
-
 		public Player(string name)
 		{
 			Name = name;
-
-			Scheduler.Schedule(TempTest());
-		}
-
-		// temp
-		private IEnumerator<YieldCommand> TempTest()
-		{
-			while (true)
-			{
-				Score = rand.Next(0, 100);
-				yield return new YieldForSeconds(1);
-			}
 		}
 	}
 }

@@ -15,14 +15,17 @@ namespace Game.Scripts
 		private Board board = null;
 		private List<Player> players = null;
 
+		private Player CurrentPlayer
+		{
+			get { return players[CurrentPlayerIndex]; }
+		}
+
 		private int currentPlayerIndex = 0;
 		private int CurrentPlayerIndex {
 			get { return currentPlayerIndex; }
 			set {
 				currentPlayerIndex = value;
-
-				Player currentPlayer = players[CurrentPlayerIndex];
-				labelCurrentPlayer.Content = currentPlayer.Name;
+				labelCurrentPlayer.Content = CurrentPlayer.Name;
 			}
 		}
 
@@ -62,15 +65,6 @@ namespace Game.Scripts
 			grid.Children.Add(scoreboard);
 
 			CurrentPlayerIndex = 0;
-
-			Scheduler.Schedule(test());
-		}
-
-		private IEnumerator<YieldCommand> test() {
-			while (true) {
-				yield return new YieldForSeconds(1);
-				EndTurn();
-			}
 		}
 
 		private void EndTurn()

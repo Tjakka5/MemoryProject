@@ -16,8 +16,10 @@ namespace Game.Scripts
 
 			foreach (Player player in players)
 			{
-				Label label = new Label();
-				label.Content = string.Format(displayFormat, player.Name, player.Score);
+				Label label = new Label
+				{
+					Content = string.Format(displayFormat, player.Name, player.Score)
+				};
 
 				labelLookup[player] = label;
 
