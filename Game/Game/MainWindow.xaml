@@ -9,5 +9,6 @@
     <Grid>
         <Button x:Name="ButtonRestart" Content="Restart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="231" Height="107" Background="#FF5B80E8" FontSize="48"/>
 		<Grid x:Name="grid" HorizontalAlignment="Left" Height="753" Margin="10,158,0,0" VerticalAlignment="Top" Width="924"/>
+        <Label x:Name="LabelCurrentPlayer" Content="Label" HorizontalAlignment="Left" Margin="386,48,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
