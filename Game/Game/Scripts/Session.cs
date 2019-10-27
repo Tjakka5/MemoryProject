@@ -8,21 +8,23 @@ namespace Game.Scripts
 {
     public class Session
     {
+		private Player currentPlayer = null;
+
         private Grid grid = null;
 
         private Board board = null;
         private List<Player> players = null;
 
-        private List<string> currentPlayerNames = null;
-        private Board.Layouts currentLayout = default;
+        private List<string> initialPlayerNames = null;
+        private Board.Layouts initialLayout = default;
 
 
         public Session(Grid grid, List<string> playerNames, Board.Layouts layout)
         {
             this.grid = grid;
 
-            currentPlayerNames = playerNames;
-            currentLayout = layout;
+            initialPlayerNames = playerNames;
+            initialLayout = layout;
 
             Start();
         }
@@ -37,12 +39,12 @@ namespace Game.Scripts
             ImageSource tempBackImage = new BitmapImage(new Uri("Resources/Images/tempBackImage.png", UriKind.Relative));
 
             // Make board
-            board = new Board(currentLayout, tempFrontImages, tempBackImage);
+            board = new Board(initialLayout, tempFrontImages, tempBackImage);
             grid.Children.Add(board);
 
             // Make players
             players = new List<Player>();
-            foreach (string playerName in currentPlayerNames)
+            foreach (string playerName in initialPlayerNames)
                 players.Add(new Player(playerName));
 
             Scoreboard scoreboard = new Scoreboard(players);
