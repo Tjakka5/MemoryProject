@@ -75,6 +75,12 @@
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseReject.cs" />
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForSeconds.cs" />
     <Compile Include="Framework\Utilities.cs" />
+    <Compile Include="Pages\PageGame.xaml.cs">
+      <DependentUpon>PageGame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageMenu.xaml.cs">
+      <DependentUpon>PageMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\Session.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Page Include="Controls\Board.xaml">
@@ -101,6 +107,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\PageGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

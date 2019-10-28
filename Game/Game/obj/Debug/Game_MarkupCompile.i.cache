@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Tjakka5\Documents\MemoryProject\Game\Game\App.xaml
-4-891494464
+6-340175281
 
-20705812120
+22-1215848293
 13-1505183044
-Controls\Board.xaml;Controls\Card.xaml;Controls\PlayerView.xaml;MainWindow.xaml;
+Controls\Board.xaml;Controls\Card.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;
 
 True
 

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using Game.Controls;
+using Game.Pages;
 using Game.Scripts;
 
 namespace Game
@@ -8,40 +11,40 @@ namespace Game
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : NavigationWindow
 	{
-		private Session currentSession;
-		
+		public enum Pages
+		{
+			MENU,
+			GAME,
+		}
+
+		private Page menu = null;
+		private Page game = null;
+
         public MainWindow()
 		{
 			InitializeComponent();
-		
-			List<PlayerView> playerViews = new List<PlayerView>()
+
+			menu = new PageMenu(this);
+			game = new PageGame(this);
+
+			ShowsNavigationUI = false;
+
+			Switch(Pages.MENU);
+        }
+
+		public void Switch(Pages page)
+		{
+			switch (page)
 			{
-				playerView_1,
-				playerView_2,
-				playerView_3,
-				playerView_4,
-			};
-
-
-            List<string> players = new List<string>() {
-                "Auke", "Maurice", "Hannah", "Justin",
-            };
-
-            currentSession = new Session(board, playerViews, players, Board.Layouts.FourByFour);
-
-            buttonRestart.Click += ButtonRestartClicked;
-        }
-
-        ~MainWindow()
-        {
-            buttonRestart.Click -= ButtonRestartClicked;
-        }
-
-        public void ButtonRestartClicked(object sender, RoutedEventArgs e)
-        {
-            currentSession.Restart();
-        }
+				case Pages.MENU:
+					Navigate(menu);
+					break;
+				case Pages.GAME:
+					Navigate(game);
+					break;
+			}
+		}
     }
 }
