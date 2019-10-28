@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Framework.Scheduling;
-
-namespace Game.Scripts
+﻿namespace Game.Scripts
 {
 	public class Player
 	{
@@ -18,19 +11,20 @@ namespace Game.Scripts
 			get { return score; }
 			set 
 			{
-				OnScoreUpdate?.Invoke(this);
 				score = value;
+				OnScoreUpdate?.Invoke(this);
 			}
 		}
-
+		
 		public string Name {
 			get;
 			private set;
 		}
 
-		public Player(string name)
+		public Player(string name, int initialScore = 0)
 		{
 			Name = name;
+			Score = initialScore;
 		}
 	}
 }

@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Framework.Scheduling;
+using Game.Controls;
 using Game.Scripts;
 
 namespace Game
@@ -22,24 +10,33 @@ namespace Game
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        private Session currentSession;
-
+		private Session currentSession;
+		
         public MainWindow()
 		{
 			InitializeComponent();
+		
+			List<PlayerView> playerViews = new List<PlayerView>()
+			{
+				playerView_1,
+				playerView_2,
+				playerView_3,
+				playerView_4,
+			};
+
 
             List<string> players = new List<string>() {
-                "Auke", "Maurice", "Hannah", "Justin", "Marijke", "Pixel"
+                "Auke", "Maurice", "Hannah", "Justin",
             };
 
-            currentSession = new Session(grid, LabelCurrentPlayer, players, Board.Layouts.FourByFour);
+            currentSession = new Session(board, playerViews, players, Board.Layouts.FourByFour);
 
-            ButtonRestart.Click += ButtonRestartClicked;
+            buttonRestart.Click += ButtonRestartClicked;
         }
 
         ~MainWindow()
         {
-            ButtonRestart.Click -= ButtonRestartClicked;
+            buttonRestart.Click -= ButtonRestartClicked;
         }
 
         public void ButtonRestartClicked(object sender, RoutedEventArgs e)

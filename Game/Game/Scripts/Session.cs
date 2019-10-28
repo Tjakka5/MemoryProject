@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Framework.Scheduling;
+using Game.Controls;
 
 namespace Game.Scripts
 {
 	public class Session
 	{
-		private Grid grid = null;
-		private Label labelCurrentPlayer = null;
-
 		private Board board = null;
-		private Scoreboard scoreboard = null;
+		private List<PlayerView> playerViews = null;
 
 		private List<Player> players = new List<Player>();
 
@@ -22,25 +19,18 @@ namespace Game.Scripts
 
 		private Player CurrentPlayer
 		{
-			get { return players[CurrentPlayerIndex]; }
+			get { return players[currentPlayerIndex]; }
 		}
 
 		private int currentPlayerIndex = 0;
-		private int CurrentPlayerIndex {
-			get { return currentPlayerIndex; }
-			set {
-				currentPlayerIndex = value;
-				labelCurrentPlayer.Content = CurrentPlayer.Name;
-			}
-		}
 
 		private List<string> initialPlayerNames = null;
         private Board.Layouts initialLayout = default;
 
-		public Session(Grid grid, Label labelCurrentPlayer, List<string> playerNames, Board.Layouts layout)
+		public Session(Board board, List<PlayerView> playerViews, List<string> playerNames, Board.Layouts layout)
 		{
-			this.grid = grid;
-			this.labelCurrentPlayer = labelCurrentPlayer;
+			this.board = board;
+			this.playerViews = playerViews;
 
 			initialPlayerNames = playerNames;
 			initialLayout = layout;
@@ -58,22 +48,21 @@ namespace Game.Scripts
 			ImageSource tempBackImage = new BitmapImage(new Uri("Resources/Images/tempBackImage.png", UriKind.Relative));
 
 			// Make board
-			board = new Board(initialLayout, tempFrontImages, tempBackImage);
+			board.Setup(initialLayout, tempFrontImages, tempBackImage);
 			board.CardClicked += OnCardClicked;
 			
-			grid.Children.Add(board);
-
-			// Make players
+			// Make players and bind them to views
 			players.Clear();
-			foreach (string playerName in initialPlayerNames)
-				players.Add(new Player(playerName));
+			
+			for (int i = 0; i < initialPlayerNames.Count; i++)
+			{
+				Player player = new Player(initialPlayerNames[i]);
+				playerViews[i].Bind(player);
+
+				players.Add(player);
+			}
 
 			clickedCards.Clear();
-
-			scoreboard = new Scoreboard(players);
-			grid.Children.Add(scoreboard);
-
-			CurrentPlayerIndex = 0;
 		}
 
 		private void OnCardClicked(Card card)
@@ -97,7 +86,6 @@ namespace Game.Scripts
 			if (!clickedCards.All(item => item.Id == id))
 			{
 				// Fail
-
 				foreach (Card _card in clickedCards)
 					_card.Hide();
 
@@ -106,7 +94,6 @@ namespace Game.Scripts
 			else
 			{
 				// Success
-
 				foreach (Card _card in clickedCards)
 					_card.Remove();
 
@@ -118,7 +105,7 @@ namespace Game.Scripts
 
 		private void EndTurn()
 		{
-			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count;
+			currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
 		}
 
 		public void Restart()
@@ -129,12 +116,10 @@ namespace Game.Scripts
 
 		public void Stop()
 		{
-			CurrentPlayerIndex = 0;
-
+			board.Clear();
 			board.CardClicked -= OnCardClicked;
 
-			grid.Children.Remove(board);
-			grid.Children.Remove(scoreboard);
+			currentPlayerIndex = 0;
 		}
 	}
 }

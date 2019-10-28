@@ -3,25 +3,34 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Game.Scripts
+namespace Game.Controls
 {
-	public class Board : Grid
+	/// <summary>
+	/// Interaction logic for Board.xaml
+	/// </summary>
+	public partial class Board : UserControl
 	{
 		public delegate void CardClickedHandler(Card card);
 		public event CardClickedHandler CardClicked;
 
-		public enum Layouts {
+		public enum Layouts
+		{
 			FourByFour,
 			FiveByFive,
 			FourBySix,
 			SixBySix,
 		};
 
-		private List<Card> cards;
+		private List<Card> cards = new List<Card>();
 
-		public Board(Layouts layouts, List<ImageSource> frontImages, ImageSource backImage) {
-			cards = new List<Card>();
-
+		public Board()
+		{
+			InitializeComponent();
+		}
+		public void Setup(Layouts layouts, List<ImageSource> frontImages, ImageSource backImage)
+		{
+			cards.Clear();
+			
 			switch (layouts)
 			{
 				case Layouts.FourByFour:
@@ -39,25 +48,36 @@ namespace Game.Scripts
 			}
 		}
 
-		~Board() {
-			foreach (Card card in cards)
-			{
-				card.Clicked -= OnCardClicked;
-			}
+		~Board()
+		{
+			Clear();
 		}
 
-		private void MakeGrid(int cols, int rows) {
+		public void Clear()
+		{
+			foreach (Card card in cards)
+				card.Clicked -= OnCardClicked;
+			cards.Clear();
+
+			grid.Children.Clear();
+
+			grid.RowDefinitions.Clear();
+			grid.ColumnDefinitions.Clear();
+		}
+
+		private void MakeGrid(int cols, int rows)
+		{
 			for (int i = 0; i < rows; i++)
-				RowDefinitions.Add(new RowDefinition());
-			
+				grid.RowDefinitions.Add(new RowDefinition());
+
 			for (int i = 0; i < cols; i++)
-				ColumnDefinitions.Add(new ColumnDefinition());
+				grid.ColumnDefinitions.Add(new ColumnDefinition());
 		}
 
 		private List<ImageSource> PrepareImagePool(List<ImageSource> imagePool, int count)
 		{
 			List<ImageSource> newImagePool = new List<ImageSource>(count);
-		
+
 			for (int i = 0; i < count / 2; i++)
 			{
 				ImageSource image = Utilities.GetRandom(imagePool);
@@ -72,14 +92,15 @@ namespace Game.Scripts
 
 		private void MakeCard(int row, int col, ImageSource frontImage, ImageSource backImage)
 		{
-			Card card = new Card(frontImage, backImage);
+			Card card = new Card();
+			card.Setup(frontImage, backImage);
 			card.Clicked += OnCardClicked;
 
-			SetRow(card, row);
-			SetColumn(card, col);
+			Grid.SetRow(card, row);
+			Grid.SetColumn(card, col);
 
 			cards.Add(card);
-			Children.Add(card);
+			grid.Children.Add(card);
 		}
 
 		private void OnCardClicked(Card card)
@@ -87,18 +108,18 @@ namespace Game.Scripts
 			CardClicked?.Invoke(card);
 		}
 
-		private void MakeFourByFour(List<ImageSource> frontImages, ImageSource backImage) {
+		private void MakeFourByFour(List<ImageSource> frontImages, ImageSource backImage)
+		{
 			List<ImageSource> frontImagePool = PrepareImagePool(frontImages, 16);
 
 			MakeGrid(4, 4);
 
 			for (int i = 0; i < 16; i++)
-			{
 				MakeCard(i % 4, i / 4, frontImagePool[i], backImage);
-			}		
 		}
 
-		private void MakeFiveByFive(List<ImageSource> frontImages, ImageSource backImage) {
+		private void MakeFiveByFive(List<ImageSource> frontImages, ImageSource backImage)
+		{
 			List<ImageSource> frontImagePool = PrepareImagePool(frontImages, 25);
 
 			MakeGrid(5, 5);
@@ -110,7 +131,8 @@ namespace Game.Scripts
 			}
 		}
 
-		private void MakeFourBySix(List<ImageSource> frontImages, ImageSource backImage) {
+		private void MakeFourBySix(List<ImageSource> frontImages, ImageSource backImage)
+		{
 			List<ImageSource> frontImagePool = PrepareImagePool(frontImages, 24);
 
 			MakeGrid(4, 6);
@@ -119,7 +141,8 @@ namespace Game.Scripts
 				MakeCard(i % 6, i / 6, frontImagePool[i], backImage);
 		}
 
-		private void MakeSixBySix(List<ImageSource> frontImages, ImageSource backImage) {
+		private void MakeSixBySix(List<ImageSource> frontImages, ImageSource backImage)
+		{
 			List<ImageSource> frontImagePool = PrepareImagePool(frontImages, 36);
 
 			MakeGrid(6, 6);

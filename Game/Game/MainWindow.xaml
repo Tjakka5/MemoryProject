@@ -3,12 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Game"
+        xmlns:control = "clr-namespace:Game.Controls" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="950" Width="950">
+        Title="Memory Game" Height="720" Width="1280">
     <Grid>
-        <Button x:Name="ButtonRestart" Content="Restart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="231" Height="107" Background="#FF5B80E8" FontSize="48"/>
-		<Grid x:Name="grid" HorizontalAlignment="Left" Height="753" Margin="10,158,0,0" VerticalAlignment="Top" Width="924"/>
-        <Label x:Name="LabelCurrentPlayer" Content="Label" HorizontalAlignment="Left" Margin="386,48,0,0" VerticalAlignment="Top"/>
+        <Canvas x:Name="windowMenu" Width="1272" Height="689" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        </Canvas>
+
+        <Canvas x:Name="windowGame" Width="1272" Height="689" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="buttonRestart" Content="Restart" Canvas.Right="10" Canvas.Top="10" Width="50" Height="50"/>
+
+            <control:Board x:Name="board" Width="947" Height="539" Canvas.Left="160" Canvas.Top="75"/>
+
+            <control:PlayerView x:Name="playerView_1" Canvas.Left="10" Canvas.Top="304" Width="150" Height="60"/>
+            <control:PlayerView x:Name="playerView_2" Canvas.Left="1112" Canvas.Top="304" Width="150" Height="60"/>
+            <control:PlayerView x:Name="playerView_3" Canvas.Bottom="10" Width="150" Height="60" Canvas.Left="550" Canvas.Top="619"/>
+            <control:PlayerView x:Name="playerView_4" Canvas.Left="550" Canvas.Top="10" Width="150" Height="60"/>
+
+        </Canvas>
     </Grid>
 </Window>

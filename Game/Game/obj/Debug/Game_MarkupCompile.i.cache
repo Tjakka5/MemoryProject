@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\marij\MemoryProject\Game\Game\obj\Debug\
+C:\Users\Tjakka5\Documents\MemoryProject\Game\Game\obj\Debug\
 Game
 none
 false
 DEBUG;TRACE
-C:\Users\marij\MemoryProject\Game\Game\App.xaml
-11151548125
+C:\Users\Tjakka5\Documents\MemoryProject\Game\Game\App.xaml
+4-891494464
 
-20331331832
+20705812120
 13-1505183044
-MainWindow.xaml;
+Controls\Board.xaml;Controls\Card.xaml;Controls\PlayerView.xaml;MainWindow.xaml;
 
 True
 

@@ -57,8 +57,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Scripts\Board.cs" />
-    <Compile Include="Scripts\Card.cs" />
+    <Compile Include="Controls\Board.xaml.cs">
+      <DependentUpon>Board.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Card.xaml.cs">
+      <DependentUpon>Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlayerView.xaml.cs">
+      <DependentUpon>PlayerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Framework\Scheduler\Promise.cs" />
     <Compile Include="Framework\Scheduler\Scheduler.cs" />
     <Compile Include="Framework\Scheduler\VoidPromise.cs" />
@@ -68,9 +75,20 @@
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForPromiseReject.cs" />
     <Compile Include="Framework\Scheduler\YieldCommands\YieldForSeconds.cs" />
     <Compile Include="Framework\Utilities.cs" />
-    <Compile Include="Scripts\Scoreboard.cs" />
     <Compile Include="Scripts\Session.cs" />
     <Compile Include="Scripts\Player.cs" />
+    <Page Include="Controls\Board.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
