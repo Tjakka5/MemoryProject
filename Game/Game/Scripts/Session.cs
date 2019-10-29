@@ -19,10 +19,21 @@ namespace Game.Scripts
 
 		private Player CurrentPlayer
 		{
-			get { return players[currentPlayerIndex]; }
+			get { return players[CurrentPlayerIndex]; }
 		}
 
 		private int currentPlayerIndex = 0;
+		private int CurrentPlayerIndex {
+			get { return currentPlayerIndex; }
+			set
+			{
+				CurrentPlayer.HasTurn = false;
+	
+				currentPlayerIndex = value;
+			
+				CurrentPlayer.HasTurn = true;
+			}
+		}
 
 		private bool isChecking = false;
 
@@ -59,6 +70,8 @@ namespace Game.Scripts
 
 				players.Add(player);
 			}
+
+			CurrentPlayerIndex = 0;
 
 			clickedCards.Clear();
 		}
@@ -112,7 +125,7 @@ namespace Game.Scripts
 
 		private void EndTurn()
 		{
-			currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
+			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count;
 		}
 
 		public void Restart()
@@ -126,7 +139,7 @@ namespace Game.Scripts
 			board.Clear();
 			board.CardClicked -= OnCardClicked;
 
-			currentPlayerIndex = 0;
+			CurrentPlayerIndex = 0;
 		}
 	}
 }

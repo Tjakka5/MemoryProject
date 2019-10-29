@@ -1,5 +1,6 @@
 ﻿using Game.Scripts;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Game.Controls
 {
@@ -30,7 +31,12 @@ namespace Game.Controls
 			
 			player.OnScoreUpdate += UpdateScoreVisual;
 			UpdateScoreVisual(player);
+
+			player.OnTurnChanged += UpdateTurnVisual;
+			UpdateTurnVisual(player);
 		}
+
+	
 
 		public void Unbind()
 		{
@@ -41,11 +47,24 @@ namespace Game.Controls
 			player.OnScoreUpdate -= UpdateScoreVisual;
 		}
 
-		public void UpdateScoreVisual(Player player)
+		private void UpdateScoreVisual(Player player)
 		{
 			string displayFormat = player.Score == 1 ? displayFormatSingular : displayFormatPlural;
 
 			labelScore.Content = string.Format(displayFormat, player.Name, player.Score);
 		}
+
+		private void UpdateTurnVisual(Player player)
+		{
+			if (player.HasTurn)
+			{
+				Background = Brushes.HotPink;
+			}
+			else
+			{
+				Background = Brushes.AliceBlue;
+			}
+		}
 	}
+
 }
