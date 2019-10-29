@@ -67,7 +67,10 @@ namespace Game.Scripts
 		{
 			if (isChecking)
 				return;
-			
+
+			if (clickedCards.Contains(card))
+				return;
+
 			card.Show();
 			clickedCards.Add(card);
 
