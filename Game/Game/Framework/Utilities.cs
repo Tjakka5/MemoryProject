@@ -12,6 +12,29 @@ namespace Framework
 			return source[random.Next(source.Count)];
 		}
 
+		public static List<int> GetRandomIntSet(int range, int count)
+		{
+			if (count > range)
+			{
+				throw new SystemException();
+			}
+
+			List<int> pool = new List<int>(range);
+			List<int> set = new List<int>(count);
+
+			for (int i = 0; i < range; i++)
+				pool.Add(i);
+
+			for (int i = 0; i < count; i++)
+			{
+				int index = random.Next(pool.Count);
+				set.Add(pool[index]);
+				pool.RemoveAt(index);
+			}
+
+			return set;
+		}
+
 		public static void Shuffle<T>(List<T> source)
 		{
 			int n = source.Count;

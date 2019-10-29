@@ -40,15 +40,11 @@ namespace Game.Scripts
 
 		private void Start()
 		{
-			// Make temporary images
-			List<ImageSource> tempFrontImages = new List<ImageSource>();
-			for (int i = 0; i < 100; i++)
-				tempFrontImages.Add(new BitmapImage(new Uri("Resources/Images/tempFrontImage.png", UriKind.Relative)));
-
-			ImageSource tempBackImage = new BitmapImage(new Uri("Resources/Images/tempBackImage.png", UriKind.Relative));
+			ImagePool.FrontTypes frontType = ImagePool.FrontTypes.POKEMON;
+			ImagePool.BackTypes backType = ImagePool.BackTypes.POKEMON;
 
 			// Make board
-			board.Setup(initialLayout, tempFrontImages, tempBackImage);
+			board.Setup(initialLayout, frontType, backType);
 			board.CardClicked += OnCardClicked;
 			
 			// Make players and bind them to views

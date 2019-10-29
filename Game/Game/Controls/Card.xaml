@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Game.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="200">
-    <ItemsControl>
-        <Image x:Name="imageBack" Width="200" Height="200"/>
-        <Image x:Name="imageFront" Width="200" Height="200"/>
+             d:DesignHeight="200" d:DesignWidth="200"
+             Margin="5">
+    <ItemsControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image x:Name="imageBack" Stretch="UniformToFill"/>
+        <Image x:Name="imageFront" Stretch="UniformToFill"/>
     </ItemsControl>
 </UserControl>

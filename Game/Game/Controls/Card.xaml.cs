@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Game.Scripts;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -39,29 +41,28 @@ namespace Game.Controls
 			Hide();
 		}
 
-		public void Setup(ImageSource frontImageSource, ImageSource backImageSource)
+		public void Setup(ImageDefinition imageDefinition)
 		{
-			imageFront.Source = new BitmapImage(new System.Uri("https://assets.pokemon.com/assets/cms2/img/pokedex/full/006.png"));
-			imageBack.Source = new BitmapImage(new System.Uri("https://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png"));
+			Id = imageDefinition.frontImageId;
 
-			//imageFront.Source = frontImageSource;
-			//imageBack.Source = backImageSource;
+			imageFront.Source = ImagePool.frontImages[imageDefinition.frontImageType][imageDefinition.frontImageId];
+			imageBack.Source = ImagePool.backImages[imageDefinition.backImageType];
 		}
 
 		public void Show()
 		{
 			State = ViewState.FRONT;
 
-			imageFront.Visibility = Visibility.Collapsed;
-			imageBack.Visibility = Visibility.Visible;
+			imageFront.Visibility = Visibility.Visible;
+			imageBack.Visibility = Visibility.Collapsed;
 		}
 
 		public void Hide()
 		{
 			State = ViewState.BACK;
 
-			imageFront.Visibility = Visibility.Visible;
-			imageBack.Visibility = Visibility.Collapsed;
+			imageFront.Visibility = Visibility.Collapsed;
+			imageBack.Visibility = Visibility.Visible;
 		}
 
 		public void Remove()
