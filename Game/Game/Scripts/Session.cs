@@ -24,6 +24,8 @@ namespace Game.Scripts
 
 		private int currentPlayerIndex = 0;
 
+		private bool isChecking = false;
+
 		private List<string> initialPlayerNames = null;
         private Board.Layouts initialLayout = default;
 
@@ -63,6 +65,9 @@ namespace Game.Scripts
 
 		private void OnCardClicked(Card card)
 		{
+			if (isChecking)
+				return;
+			
 			card.Show();
 			clickedCards.Add(card);
 
@@ -75,6 +80,8 @@ namespace Game.Scripts
 		
 		private IEnumerator<YieldCommand> CheckCardsRoutine()
 		{
+			isChecking = true;
+
 			yield return new YieldForSeconds(1);
 
 			// Check if all cards have same id
@@ -97,6 +104,7 @@ namespace Game.Scripts
 			}
 
 			clickedCards.Clear();
+			isChecking = false;
 		}
 
 		private void EndTurn()
