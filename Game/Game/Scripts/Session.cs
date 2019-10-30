@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Framework.Scheduling;
@@ -66,10 +67,21 @@ namespace Game.Scripts
 			for (int i = 0; i < initialPlayerNames.Count; i++)
 			{
 				Player player = new Player(initialPlayerNames[i]);
-				playerViews[i].Bind(player);
-
 				players.Add(player);
 			}
+			for (int i = 0; i < playerViews.Count; i++)
+			{
+				PlayerView playerView = playerViews[i];
+				if (i < players.Count)
+				{
+					playerView.Bind(players[i]);
+					playerView.Visibility = Visibility.Visible;
+				}
+				else 
+					playerView.Visibility = Visibility.Hidden;
+				
+			}
+
 
 			CurrentPlayerIndex = 0;
 
