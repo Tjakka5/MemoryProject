@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Game.Pages
 {
@@ -8,7 +9,7 @@ namespace Game.Pages
 	/// </summary>
 	public partial class PageMenu : Page
 	{
-		MainWindow window = null;
+		private MainWindow window = null;
 
 		public PageMenu(MainWindow window)
 		{
@@ -19,7 +20,7 @@ namespace Game.Pages
 
 		private void OnButtonPlayClicked(object sender, RoutedEventArgs e)
 		{
-			window.Switch(MainWindow.Pages.GAME);
+			window.NavigateToSettings();
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace Game.Pages
 	{
 		private MainWindow window = null;
 
+		private List<PlayerView> playerViews = null;
 		private Session currentSession = null;
 
 		public PageGame(MainWindow window)
@@ -32,26 +33,25 @@ namespace Game.Pages
 
 			this.window = window;
 
-			List<PlayerView> playerViews = new List<PlayerView>()
+			playerViews = new List<PlayerView>()
 			{
 				playerView_1,
 				playerView_2,
 				playerView_3,
 				playerView_4,
 			};
-
-			List<string> players = new List<string>() {
-				"Auke", "Maurice", "Hannah", "Justin",
-			};
-
-			currentSession = new Session(board, playerViews, players, Board.Layouts.FourByFour);
-
+			
 			buttonRestart.Click += ButtonRestartClicked;
 		}
 
 		~PageGame()
 		{
 			buttonRestart.Click -= ButtonRestartClicked;
+		}
+
+		public void Setup(List<string> playerNames)
+		{
+			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
 		}
 
 		public void ButtonRestartClicked(object sender, RoutedEventArgs e)

@@ -81,6 +81,9 @@
     <Compile Include="Pages\PageMenu.xaml.cs">
       <DependentUpon>PageMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageSettings.xaml.cs">
+      <DependentUpon>PageSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Scripts\ImageDefinition.cs" />
     <Compile Include="Scripts\ImagePool.cs" />
     <Compile Include="Scripts\Session.cs" />
@@ -114,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

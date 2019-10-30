@@ -13,14 +13,9 @@ namespace Game
 	/// </summary>
 	public partial class MainWindow : NavigationWindow
 	{
-		public enum Pages
-		{
-			MENU,
-			GAME,
-		}
-
-		private Page menu = null;
-		private Page game = null;
+		private PageMenu menu = null;
+		private PageGame game = null;
+		private PageSettings settings = null;
 
         public MainWindow()
 		{
@@ -28,23 +23,27 @@ namespace Game
 
 			menu = new PageMenu(this);
 			game = new PageGame(this);
+			settings = new PageSettings(this);
 
 			ShowsNavigationUI = false;
 
-			Switch(Pages.MENU);
+			NavigateToMenu();
         }
 
-		public void Switch(Pages page)
+		public void NavigateToMenu()
 		{
-			switch (page)
-			{
-				case Pages.MENU:
-					Navigate(menu);
-					break;
-				case Pages.GAME:
-					Navigate(game);
-					break;
-			}
+			Navigate(menu);
+		}
+
+		public void NavigateToGame(List<string> playerNames)
+		{
+			Navigate(game);
+			game.Setup(playerNames);
+		}
+
+		public void NavigateToSettings()
+		{
+			Navigate(settings);
 		}
     }
 }
