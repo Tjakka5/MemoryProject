@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\user\Documents\MemoryProject\Game\Game\App.xaml
-71185440858
+9-1866419539
 
-28-497369901
+30153308236
 13-1505183044
-Controls\Board.xaml;Controls\Card.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
+Controls\Board.xaml;Controls\Card.xaml;Controls\Modal.xaml;Controls\ModalContent\ModalContentPause.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
 
 False
 

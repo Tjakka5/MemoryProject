@@ -19,11 +19,6 @@ namespace Game.Controls
 			InitializeComponent();
 		}
 
-		~PlayerView()
-		{
-			Unbind();
-		}
-
 		public void Bind(Player player)
 		{
 			this.player = player;

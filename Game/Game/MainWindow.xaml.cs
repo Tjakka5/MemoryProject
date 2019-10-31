@@ -27,7 +27,8 @@ namespace Game
 
 			ShowsNavigationUI = false;
 
-			NavigateToMenu();
+			//NavigateToMenu();
+			NavigateToGame(new List<string>() { "Player_1", "Player_2", "Player_3", "Player_4" });
         }
 
 		public void NavigateToMenu()

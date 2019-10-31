@@ -1,4 +1,5 @@
 ﻿using Game.Controls;
+using Game.Controls.ModalContent;
 using Game.Scripts;
 using System;
 using System.Collections.Generic;
@@ -42,11 +43,13 @@ namespace Game.Pages
 			};
 			
 			buttonRestart.Click += ButtonRestartClicked;
+			buttonPause.Click += ButtonPauseClicked;
 		}
 
 		~PageGame()
 		{
 			buttonRestart.Click -= ButtonRestartClicked;
+			buttonPause.Click += ButtonPauseClicked;
 		}
 
 		/// <summary>
@@ -66,6 +69,12 @@ namespace Game.Pages
 		public void ButtonRestartClicked(object sender, RoutedEventArgs e)
 		{
 			currentSession.Restart();
+		}
+
+		public void ButtonPauseClicked(object sender, RoutedEventArgs e)
+		{
+			UserControl modalContentPause = new ModalContentPause();
+			modal.Show(modalContentPause);
 		}
 	}
 }
