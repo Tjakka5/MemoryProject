@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:Game.Controls.ModalContent"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ItemsControl>
-        <Label Content="Game Paused" HorizontalAlignment="Center"/>
-    </ItemsControl>
+    <StackPanel Orientation="Vertical">
+        <Button x:Name="buttonRestart" Content="Spel Resetten" Margin="100 40 100 40" Click="OnButtonRestartClicked"/>
+        <Button x:Name="buttonResume" Content="Spel Hervatten" Margin="100 40 100 40" Click="OnButtonResumeClicked"/>
+        <Button x:Name="buttonMenu" Content="Menu" Margin="100 40 100 40" Click="OnButtonMenuClicked"/>
+        
+       
+
+    </StackPanel>
 </UserControl>

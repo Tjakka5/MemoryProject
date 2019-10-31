@@ -28,6 +28,8 @@ namespace Game.Pages
 		private List<PlayerView> playerViews = null;
 		private Session currentSession = null;
 
+        private ModalContentPause modalContentPause = null;
+
 		public PageGame(MainWindow window)
 		{
 			InitializeComponent();
@@ -41,15 +43,20 @@ namespace Game.Pages
 				playerView_3,
 				playerView_4,
 			};
-			
-			buttonRestart.Click += ButtonRestartClicked;
-			buttonPause.Click += ButtonPauseClicked;
+
+            modalContentPause = new ModalContentPause();
+            modalContentPause.ButtonRestartClicked += Restart;
+			modalContentPause.ButtonResumeClicked += UnPause;
+			modalContentPause.ButtonMenuClicked += GoToMenu;
+
+			buttonRestart.Click += OnRestartButtonClicked;
+			buttonPause.Click += OnPauseButtonClicked;
 		}
 
 		~PageGame()
 		{
-			buttonRestart.Click -= ButtonRestartClicked;
-			buttonPause.Click += ButtonPauseClicked;
+			buttonRestart.Click -= OnRestartButtonClicked;
+			buttonPause.Click += OnPauseButtonClicked;
 		}
 
 		/// <summary>
@@ -61,20 +68,41 @@ namespace Game.Pages
 			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
 		}
 
-		/// <summary>
-		/// On restart button clicked
-		/// </summary>
-		/// <param name="sender">Sender</param>
-		/// <param name="e">Events</param>
-		public void ButtonRestartClicked(object sender, RoutedEventArgs e)
+        private void Restart()
+        {
+			// Temp
+			modal.Hide();
+
+            currentSession.Restart();
+        }
+
+		private void UnPause()
 		{
-			currentSession.Restart();
+			modal.Hide();	
 		}
 
-		public void ButtonPauseClicked(object sender, RoutedEventArgs e)
+		private void GoToMenu()
 		{
-			UserControl modalContentPause = new ModalContentPause();
-			modal.Show(modalContentPause);
+			UnPause();
+
+			currentSession.Stop();
+			window.NavigateToMenu();
 		}
-	}
+
+
+		private void Pause()
+        {
+            modal.Show(modalContentPause);
+        }
+
+        private void OnRestartButtonClicked(object sender, RoutedEventArgs e)
+        {
+            currentSession.Restart();
+        }
+
+        private void OnPauseButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Pause();
+        }
+    }
 }
