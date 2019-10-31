@@ -29,6 +29,7 @@ namespace Game.Pages
 		private Session currentSession = null;
 
         private ModalContentPause modalContentPause = null;
+		private ModalContentEndResult modalContentEndResult = null;
 
 		public PageGame(MainWindow window)
 		{
@@ -49,6 +50,8 @@ namespace Game.Pages
 			modalContentPause.ButtonResumeClicked += UnPause;
 			modalContentPause.ButtonMenuClicked += GoToMenu;
 
+			modalContentEndResult = new ModalContentEndResult();
+
 			buttonRestart.Click += OnRestartButtonClicked;
 			buttonPause.Click += OnPauseButtonClicked;
 		}
@@ -66,6 +69,13 @@ namespace Game.Pages
 		public void Setup(List<string> playerNames)
 		{
 			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
+			currentSession.GameFinished += FinishGame;
+		}
+
+		private void FinishGame(List<Player> players)
+		{
+			modalContentEndResult.Setup(players);
+			modal.Show(modalContentEndResult);
 		}
 
         private void Restart()

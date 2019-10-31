@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Game.Controls.ModalContent.ModalContentEndResult"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Game.Controls.ModalContent"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical">
+        <Label Content="Spel voorbij" HorizontalAlignment="Center"/>
+        
+        <Label x:Name="labelPlayerOneResult" Content="Player 1 Score:" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerTwoResult" Content="Player 2 Score:" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerThreeResult" Content="Player 3 Score:" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerFourResult" Content="Player 4 Score:" HorizontalAlignment="Center"/>
+    </StackPanel>
+</UserControl>

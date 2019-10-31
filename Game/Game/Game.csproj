@@ -66,6 +66,9 @@
     <Compile Include="Controls\Modal.xaml.cs">
       <DependentUpon>Modal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ModalContent\ModalContentEndResult.xaml.cs">
+      <DependentUpon>ModalContentEndResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ModalContent\ModalContentPause.xaml.cs">
       <DependentUpon>ModalContentPause.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Modal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ModalContent\ModalContentEndResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

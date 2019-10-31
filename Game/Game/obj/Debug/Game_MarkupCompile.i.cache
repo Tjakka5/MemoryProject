@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\user\Documents\MemoryProject\Game\Game\obj\Debug\
+C:\Users\aukeh\Documents\MemoryProject\Game\Game\obj\Debug\
 Game
 none
 false
 DEBUG;TRACE
-C:\Users\user\Documents\MemoryProject\Game\Game\App.xaml
-9-1866419539
+C:\Users\aukeh\Documents\MemoryProject\Game\Game\App.xaml
+10-1423148600
 
-30153308236
+28-395150365
 13-1505183044
-Controls\Board.xaml;Controls\Card.xaml;Controls\Modal.xaml;Controls\ModalContent\ModalContentPause.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
+Controls\Board.xaml;Controls\Card.xaml;Controls\Modal.xaml;Controls\ModalContent\ModalContentEndResult.xaml;Controls\ModalContent\ModalContentPause.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
 
-False
+True
 

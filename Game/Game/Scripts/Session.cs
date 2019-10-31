@@ -11,12 +11,16 @@ namespace Game.Scripts
 {
 	public class Session
 	{
+		public delegate void GameFinishedHandler(List<Player> players);
+		public event GameFinishedHandler GameFinished;
+
 		private Board board = null;
 		private List<PlayerView> playerViews = null;
 
 		private List<Player> players = new List<Player>();
 
 		private List<Card> clickedCards = new List<Card>(2);
+		private int cardsLeft = 2;
 
 		private Player CurrentPlayer
 		{
@@ -137,6 +141,11 @@ namespace Game.Scripts
 					_card.Remove();
 
 				CurrentPlayer.Score += 1;
+
+				cardsLeft -= 2;
+
+				if (cardsLeft == 0)
+					GameFinished?.Invoke(players);
 			}
 
 			// Stop checking
@@ -149,11 +158,7 @@ namespace Game.Scripts
 		/// </summary>
 		private void EndTurn()
 		{
-			CurrentPlayerIndex++;
-
-			// If at the last player. Go back to first one
-			if (CurrentPlayerIndex > players.Count)
-				currentPlayerIndex = 0;
+			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count;
 		}
 
 		/// <summary>
