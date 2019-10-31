@@ -20,7 +20,6 @@
 		}
 
 		private bool hasTurn = false;
-
 		public bool HasTurn
 		{
 			get { return hasTurn; }

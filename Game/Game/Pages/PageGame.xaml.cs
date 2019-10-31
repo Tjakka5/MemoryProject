@@ -49,11 +49,20 @@ namespace Game.Pages
 			buttonRestart.Click -= ButtonRestartClicked;
 		}
 
+		/// <summary>
+		/// Starts a game session
+		/// </summary>
+		/// <param name="playerNames">List of player names</param>
 		public void Setup(List<string> playerNames)
 		{
 			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
 		}
 
+		/// <summary>
+		/// On restart button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Events</param>
 		public void ButtonRestartClicked(object sender, RoutedEventArgs e)
 		{
 			currentSession.Restart();

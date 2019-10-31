@@ -54,6 +54,7 @@ namespace Game.Scripts
 
 		private void Start()
 		{
+			// Temp
 			ImagePool.FrontTypes frontType = ImagePool.FrontTypes.POKEMON;
 			ImagePool.BackTypes backType = ImagePool.BackTypes.POKEMON;
 
@@ -61,7 +62,7 @@ namespace Game.Scripts
 			board.Setup(initialLayout, frontType, backType);
 			board.CardClicked += OnCardClicked;
 			
-			// Make players and bind them to views
+			// Make players
 			players.Clear();
 			
 			for (int i = 0; i < initialPlayerNames.Count; i++)
@@ -69,9 +70,13 @@ namespace Game.Scripts
 				Player player = new Player(initialPlayerNames[i]);
 				players.Add(player);
 			}
+
+			// Bind players to views
 			for (int i = 0; i < playerViews.Count; i++)
 			{
 				PlayerView playerView = playerViews[i];
+
+				// Only make views with a player visible
 				if (i < players.Count)
 				{
 					playerView.Bind(players[i]);
@@ -79,9 +84,7 @@ namespace Game.Scripts
 				}
 				else 
 					playerView.Visibility = Visibility.Hidden;
-				
 			}
-
 
 			CurrentPlayerIndex = 0;
 
@@ -90,12 +93,15 @@ namespace Game.Scripts
 
 		private void OnCardClicked(Card card)
 		{
+			// If we're already checking cards. Ignore this card
 			if (isChecking)
 				return;
 
+			// If this card was already clicked. Ignore this card.
 			if (clickedCards.Contains(card))
 				return;
 
+			// Accept the card input
 			card.Show();
 			clickedCards.Add(card);
 
@@ -105,11 +111,13 @@ namespace Game.Scripts
 
 			Scheduler.Schedule(CheckCardsRoutine());
 		}
-		
+
 		private IEnumerator<YieldCommand> CheckCardsRoutine()
 		{
+			// Start checking
 			isChecking = true;
 
+			// Wait 1 second
 			yield return new YieldForSeconds(1);
 
 			// Check if all cards have same id
@@ -131,21 +139,35 @@ namespace Game.Scripts
 				CurrentPlayer.Score += 1;
 			}
 
+			// Stop checking
 			clickedCards.Clear();
 			isChecking = false;
 		}
 
+		/// <summary>
+		/// Ends the current player's turn
+		/// </summary>
 		private void EndTurn()
 		{
-			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % players.Count;
+			CurrentPlayerIndex++;
+
+			// If at the last player. Go back to first one
+			if (CurrentPlayerIndex > players.Count)
+				currentPlayerIndex = 0;
 		}
 
+		/// <summary>
+		/// Restarts the session
+		/// </summary>
 		public void Restart()
 		{
 			Stop();
 			Start();
 		}
 
+		/// <summary>
+		/// Stops the session
+		/// </summary>
 		public void Stop()
 		{
 			board.Clear();

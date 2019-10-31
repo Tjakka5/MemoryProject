@@ -29,6 +29,7 @@ namespace Game.Controls
 		{
 			InitializeComponent();
 		}
+
 		public void Setup(Layouts layouts, ImagePool.FrontTypes frontTypes, ImagePool.BackTypes backTypes)
 		{
 			cards.Clear();
@@ -137,8 +138,10 @@ namespace Game.Controls
 
 			for (int i = 0; i < 25; i++)
 			{
-				if (i == 12) continue; // Skip the center tile
-				MakeCard(i % 5, i / 5, imageDefinitions[i]);
+				int id = i;
+				if (id == 12) continue; // Skip the center tile
+				if (id > 12) id--;
+				MakeCard(i % 5, i / 5, imageDefinitions[id]);
 			}
 		}
 

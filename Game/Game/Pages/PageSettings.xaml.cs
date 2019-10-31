@@ -50,10 +50,15 @@ namespace Game.Pages
 			MakeTextBoxes(4);
 		}
 
+		/// <summary>
+		/// Makes or creates the desired amount of textboxes
+		/// </summary>
+		/// <param name="newCount">Amount of target textboxes</param>
 		private void MakeTextBoxes(int newCount)
 		{
 			if (newCount > textBoxes.Count)
 			{
+				// Make new textboxes
 				int toMake = newCount - textBoxes.Count;
 
 				for (int i = 0; i < toMake; i++)
@@ -72,6 +77,7 @@ namespace Game.Pages
 			}
 			else if (newCount < textBoxes.Count)
 			{
+				// Delete textboxes
 				int toDelete = textBoxes.Count - newCount;
 				for (int i = 0; i < toDelete; i++)
 				{
@@ -81,10 +87,14 @@ namespace Game.Pages
 					textInputs.Children.Remove(textBox);
 				}
 			}
-
+			
 			UpdateButtonPlayState();
 		}
 
+		/// <summary>
+		/// Check if all inputs are properly set
+		/// </summary>
+		/// <returns></returns>
 		private bool CheckValidStart()
 		{
 			foreach (TextBox textBox in textBoxes)
@@ -93,19 +103,34 @@ namespace Game.Pages
 					return false;
 			}
 
+			// More checks?
+
 			return true;
 		}
 
+		/// <summary>
+		/// Updates play button state
+		/// </summary>
 		private void UpdateButtonPlayState()
 		{
 			buttonPlay.IsEnabled = CheckValidStart();
 		}
 
+		/// <summary>
+		/// On textbutton text changed
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Events</param>
 		private void OnTextChanged(object sender, RoutedEventArgs e)
 		{
 			UpdateButtonPlayState();
 		}
 
+		/// <summary>
+		/// On play button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Events</param>
 		private void OnButtonPlayClicked(object sender, RoutedEventArgs e)
 		{
 			List<string> playerNames = new List<string>();
