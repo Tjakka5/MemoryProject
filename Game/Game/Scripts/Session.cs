@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Framework.Scheduling;
 using Game.Controls;
 
 namespace Game.Scripts
@@ -18,9 +13,6 @@ namespace Game.Scripts
 		private List<PlayerView> playerViews = null;
 
 		private List<Player> players = new List<Player>();
-
-		private List<Card> clickedCards = new List<Card>(2);
-		private int cardsLeft = 2;
 
 		private Player CurrentPlayer
 		{
@@ -39,8 +31,6 @@ namespace Game.Scripts
 				CurrentPlayer.HasTurn = true;
 			}
 		}
-
-		private bool isChecking = false;
 
 		private List<string> initialPlayerNames = null;
         private Board.Layouts initialLayout = default;
@@ -64,7 +54,8 @@ namespace Game.Scripts
 
 			// Make board
 			board.Setup(initialLayout, frontType, backType);
-			board.CardClicked += OnCardClicked;
+			board.MatchMade += OnMatchMade;
+			board.GameFinished += OnGameFinished;
 			
 			// Make players
 			players.Clear();
@@ -91,66 +82,19 @@ namespace Game.Scripts
 			}
 
 			CurrentPlayerIndex = 0;
-
-			clickedCards.Clear();
 		}
 
-		private void OnCardClicked(Card card)
+		private void OnMatchMade(bool success)
 		{
-			// If we're already checking cards. Ignore this card
-			if (isChecking)
-				return;
-
-			// If this card was already clicked. Ignore this card.
-			if (clickedCards.Contains(card))
-				return;
-
-			// Accept the card input
-			card.Show();
-			clickedCards.Add(card);
-
-			// Check if threshold is reached
-			if (clickedCards.Count != 2)
-				return;
-
-			Scheduler.Schedule(CheckCardsRoutine());
-		}
-
-		private IEnumerator<YieldCommand> CheckCardsRoutine()
-		{
-			// Start checking
-			isChecking = true;
-
-			// Wait 1 second
-			yield return new YieldForSeconds(1);
-
-			// Check if all cards have same id
-			int id = clickedCards[0].Id;
-			if (!clickedCards.All(item => item.Id == id))
-			{
-				// Fail
-				foreach (Card _card in clickedCards)
-					_card.Hide();
-
-				EndTurn();
-			}
-			else
-			{
-				// Success
-				foreach (Card _card in clickedCards)
-					_card.Remove();
-
+			if (success)
 				CurrentPlayer.Score += 1;
+			else
+				EndTurn();
+		}
 
-				cardsLeft -= 2;
-
-				if (cardsLeft == 0)
-					GameFinished?.Invoke(players);
-			}
-
-			// Stop checking
-			clickedCards.Clear();
-			isChecking = false;
+		private void OnGameFinished()
+		{
+			GameFinished?.Invoke(players);
 		}
 
 		/// <summary>
@@ -176,8 +120,9 @@ namespace Game.Scripts
 		public void Stop()
 		{
 			board.Clear();
-			board.CardClicked -= OnCardClicked;
-
+			board.MatchMade -= OnMatchMade;
+			board.GameFinished -= OnGameFinished;
+		
 			CurrentPlayerIndex = 0;
 		}
 	}

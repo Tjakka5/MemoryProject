@@ -1,7 +1,9 @@
 ﻿using Framework;
+using Framework.Scheduling;
 using Game.Scripts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -12,8 +14,11 @@ namespace Game.Controls
 	/// </summary>
 	public partial class Board : UserControl
 	{
-		public delegate void CardClickedHandler(Card card);
-		public event CardClickedHandler CardClicked;
+		public delegate void MatchMadeHandler(bool success);
+		public event MatchMadeHandler MatchMade;
+
+		public delegate void GameFinishedHandler();
+		public event GameFinishedHandler GameFinished;
 
 		public enum Layouts
 		{
@@ -22,6 +27,15 @@ namespace Game.Controls
 			FourBySix,
 			SixBySix,
 		};
+
+		public bool IsChecking
+		{
+			get;
+			private set;
+		}
+
+		private List<Card> clickedCards = new List<Card>(2);
+		private int cardsLeft = 0;
 
 		private List<Card> cards = new List<Card>();
 
@@ -33,7 +47,9 @@ namespace Game.Controls
 		public void Setup(Layouts layouts, ImagePool.FrontTypes frontTypes, ImagePool.BackTypes backTypes)
 		{
 			cards.Clear();
-			
+			clickedCards.Clear();
+			cardsLeft = 0;
+
 			switch (layouts)
 			{
 				case Layouts.FourByFour:
@@ -113,11 +129,66 @@ namespace Game.Controls
 
 			cards.Add(card);
 			grid.Children.Add(card);
+
+			cardsLeft++;
 		}
 
 		private void OnCardClicked(Card card)
 		{
-			CardClicked?.Invoke(card);
+			// If we're already checking cards. Ignore this card
+			if (IsChecking)
+				return;
+
+			// If this card was already clicked. Ignore this card.
+			if (clickedCards.Contains(card))
+				return;
+
+			// Accept the card input
+			card.Show();
+			clickedCards.Add(card);
+
+			// Check if threshold is reached
+			if (clickedCards.Count != 2)
+				return;
+
+			Scheduler.Schedule(CheckCardsRoutine());
+		}
+
+		private IEnumerator<YieldCommand> CheckCardsRoutine()
+		{
+			// Start checking
+			IsChecking = true;
+
+			// Wait 1 second
+			yield return new YieldForSeconds(1);
+
+			// Check if all cards have same id
+			int id = clickedCards[0].Id;
+			if (!clickedCards.All(item => item.Id == id))
+			{
+				// Fail
+				foreach (Card _card in clickedCards)
+					_card.Hide();
+
+				MatchMade?.Invoke(false);
+			}
+			else
+			{
+				// Success
+				foreach (Card _card in clickedCards)
+					_card.Remove();
+
+				MatchMade?.Invoke(true);
+
+				cardsLeft -= 2;
+
+				if (cardsLeft == 0)
+					GameFinished?.Invoke();
+			}
+
+			// Stop checking
+			clickedCards.Clear();
+			IsChecking = false;
 		}
 
 		private void MakeFourByFour(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
