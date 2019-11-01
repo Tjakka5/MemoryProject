@@ -5,17 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Game.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="689" d:DesignWidth="1272"
       Title="PageSettings">
 
-    <Grid>
-        <Button x:Name="ButtonTwoPlayers" Content="Two Players" HorizontalAlignment="Left" Margin="167,10,0,0" VerticalAlignment="Top" Width="75" Click="OnButtonTwoPlayersClicked"/>
-        <Button x:Name="ButtonThreePLayers" Content="Three Players" HorizontalAlignment="Left" Margin="367,10,0,0" VerticalAlignment="Top" Width="75" Click="OnButtonThreePlayersClicked"/>
-        <Button x:Name="ButtonFourPlayers" Content="Four Players" HorizontalAlignment="Left" Margin="566,10,0,0" VerticalAlignment="Top" Width="75" Click="OnButtonFourPlayersClicked"/>
+    <StackPanel Orientation="Vertical">
+        <Label Content="Kies aantal spelers" Style="{StaticResource Font}" FontSize="80px" HorizontalAlignment="Center" Margin="0 20 0 -10"/>
 
-        <StackPanel x:Name="textInputs" Orientation="Horizontal" Height="20" Margin="0 50 0 0" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="ButtonTwoPlayers" Width="120" Height="60" Margin="20 0 20 0" Click="OnButtonTwoPlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
+                <Image Source="..//Resources/Images/TwoPlayers.png" Stretch="None"/>
+            </Button>
 
+            <Button x:Name="ButtonThreePLayers" Width="120" Margin="20 0 20 0" Click="OnButtonThreePlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
+                <Image Source="..//Resources/Images/ThreePlayers.png" Stretch="None"/>
+            </Button>
+
+            <Button x:Name="ButtonFourPlayers" Width="120" Margin="20 0 20 0" Click="OnButtonFourPlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
+                <Image Source="..//Resources/Images/FourPlayers.png" Stretch="None"/>
+            </Button>
         </StackPanel>
-        <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Left" Margin="367,213,0,0" VerticalAlignment="Top" Width="75" Click="OnButtonPlayClicked"/>
-    </Grid>
+
+        <StackPanel x:Name="textInputs" Orientation="Horizontal" Height="20" Margin="0 50 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Click="OnButtonPlayClicked"/>
+    </StackPanel>
 </Page>

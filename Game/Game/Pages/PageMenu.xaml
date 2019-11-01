@@ -8,5 +8,19 @@
       d:DesignHeight="689" d:DesignWidth="1272"
       Title="PageMenu">
 
-    <Button x:Name="ButtonPlay" Content="Play" HorizontalAlignment="Left" Margin="466,168,0,0" VerticalAlignment="Top" Width="352" Height="52" Click="OnButtonPlayClicked"/>
+    <StackPanel Orientation="Vertical">
+        <Label Content="Memory" Style="{StaticResource TitleFont}" FontSize="200px" HorizontalAlignment="Center" Margin="0 50 0 0"  Foreground="#FFFDAC00">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="15" BlurRadius="0"/>
+            </Label.Effect>
+        </Label>
+        <Button x:Name="ButtonPlay" HorizontalAlignment="Center" Margin="0,60,0,0" Width="400" Height="60" Click="OnButtonPlayClicked">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Spelen" Style="{StaticResource TitleFont}" FontSize="20" VerticalAlignment="Center"/>
+                <Image Source="..//Resources/Images/star.png" VerticalAlignment="Center" Width="50" Margin="20 0 0 5"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="ButtonPlay1" Content="Hervatten" Style="{StaticResource TitleFont}" FontSize="20" HorizontalAlignment="Center" Margin="0,50,0,0" Width="400" Height="60" Click="OnButtonPlayClicked"/>
+        <Button x:Name="ButtonPlay2" Content="Highscores" Style="{StaticResource TitleFont}" FontSize="20" HorizontalAlignment="Center" Margin="0,50,0,0" Width="400" Height="60" Click="OnButtonPlayClicked"/>
+    </StackPanel>
 </Page>

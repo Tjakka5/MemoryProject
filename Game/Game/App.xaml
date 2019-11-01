@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Game"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="TitleFont">
+            <Setter Property="TextElement.FontFamily" Value="pack://application:,,,/Resources/Fonts/#MondoBeyondo BB" />
+        </Style>
+
+        <Style x:Key="Font">
+            <Setter Property="TextElement.FontFamily" Value="pack://application:,,,/Resources/Fonts/#James Fajardo" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\user\Documents\MemoryProject\Game\Game\obj\Debug\
+C:\Users\marij\MemoryProject\Game\Game\obj\Debug\
 Game
 none
 false
 DEBUG;TRACE
-C:\Users\user\Documents\MemoryProject\Game\Game\App.xaml
+C:\Users\marij\MemoryProject\Game\Game\App.xaml
 10-1423148600
 
-33658296376
+28-1253284009
 13-1505183044
 Controls\Board.xaml;Controls\Card.xaml;Controls\Modal.xaml;Controls\ModalContent\ModalContentEndResult.xaml;Controls\ModalContent\ModalContentPause.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
 
