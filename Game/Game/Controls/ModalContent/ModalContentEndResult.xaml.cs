@@ -1,18 +1,8 @@
 ﻿using Game.Scripts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Game.Controls.ModalContent
 {
@@ -23,6 +13,12 @@ namespace Game.Controls.ModalContent
 	{
 		private readonly string displayFormatSingular = "{0} heeft {1} punt";
 		private readonly string displayFormatPlural = "{0} heeft {1} punten";
+
+		public delegate void ButtonPlayAgainClickedHandler();
+		public event ButtonPlayAgainClickedHandler ButtonPlayAgainClicked;
+
+		public delegate void ButtonMenuClickedHandler();
+		public event ButtonMenuClickedHandler ButtonMenuClicked;
 
 		private List<Label> labelPlayerResults = null;
 
@@ -44,22 +40,35 @@ namespace Game.Controls.ModalContent
 			// Sort players by score
 			players = players.OrderByDescending(player => player.Score).ToList();
 			
+			// Loop over all labels
 			for (int i = 0; i < labelPlayerResults.Count; i++)
 			{
 				Label label = labelPlayerResults[i];
 
-				if (i < players.Count)
+				if (i < players.Count) // If there's a player for this label...
 				{
 					Player player = players[i];
 					
 					string displayFormat = player.Score == 1 ? displayFormatSingular : displayFormatPlural;
 
+					// Show the label with content
 					label.Visibility = Visibility.Visible;
 					label.Content = string.Format(displayFormat, player.Name, player.Score);
 				}
-				else
+				else 
+					// Else. Hide the label
 					label.Visibility = Visibility.Collapsed;
 			}
+		}
+
+		private void OnButtonPlayAgainClicked(object sender, RoutedEventArgs e)
+		{
+			ButtonPlayAgainClicked?.Invoke();
+		}
+
+		private void OnButtonMenuClicked(object sender, RoutedEventArgs e)
+		{
+			ButtonMenuClicked?.Invoke();
 		}
 	}
 }

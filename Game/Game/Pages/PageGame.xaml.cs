@@ -47,10 +47,12 @@ namespace Game.Pages
 
             modalContentPause = new ModalContentPause();
             modalContentPause.ButtonRestartClicked += Restart;
-			modalContentPause.ButtonResumeClicked += UnPause;
-			modalContentPause.ButtonMenuClicked += GoToMenu;
+			modalContentPause.ButtonResumeClicked += Unpause;
+			modalContentPause.ButtonMenuClicked += GotoMenu;
 
 			modalContentEndResult = new ModalContentEndResult();
+			modalContentEndResult.ButtonPlayAgainClicked += Restart;
+			modalContentEndResult.ButtonMenuClicked += GotoMenu;
 
 			buttonRestart.Click += OnRestartButtonClicked;
 			buttonPause.Click += OnPauseButtonClicked;
@@ -80,20 +82,19 @@ namespace Game.Pages
 
         private void Restart()
         {
-			// Temp
-			modal.Hide();
+			Unpause();
 
             currentSession.Restart();
         }
 
-		private void UnPause()
+		private void Unpause()
 		{
 			modal.Hide();	
 		}
 
-		private void GoToMenu()
+		private void GotoMenu()
 		{
-			UnPause();
+			Unpause();
 
 			currentSession.Stop();
 			window.NavigateToMenu();

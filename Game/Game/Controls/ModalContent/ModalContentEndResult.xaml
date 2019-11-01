@@ -13,5 +13,10 @@
         <Label x:Name="labelPlayerTwoResult" Content="Player 2 Score:" HorizontalAlignment="Center"/>
         <Label x:Name="labelPlayerThreeResult" Content="Player 3 Score:" HorizontalAlignment="Center"/>
         <Label x:Name="labelPlayerFourResult" Content="Player 4 Score:" HorizontalAlignment="Center"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="buttonPlayAgain" Content="Opnieuw spelen" Width="100" Margin="40 0 40 0" Click="OnButtonPlayAgainClicked"/>
+            <Button x:Name="buttonMenu" Content="Menu" Width="100" Margin="40 0 40 0" Click="OnButtonMenuClicked"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>
