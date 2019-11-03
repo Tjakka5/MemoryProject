@@ -48,7 +48,7 @@ namespace Game.Pages
             modalContentPause = new ModalContentPause();
             modalContentPause.ButtonRestartClicked += Restart;
 			modalContentPause.ButtonResumeClicked += Unpause;
-			modalContentPause.ButtonMenuClicked += GotoMenu;
+			modalContentPause.ButtonMenuClicked += Save;
 
 			modalContentEndResult = new ModalContentEndResult();
 			modalContentEndResult.ButtonPlayAgainClicked += Restart;
@@ -70,14 +70,17 @@ namespace Game.Pages
 		/// <param name="playerNames">List of player names</param>
 		public void Setup(List<string> playerNames)
 		{
-			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
-			currentSession.GameFinished += FinishGame;
+			currentSession = new Session(board, playerViews);
+			//currentSession.Load();
+			currentSession.Setup(playerNames, Board.Layouts.FourByFour);
 
-			//FinishGame(new List<Player>() { new Player("Yeet", 5), new Player("Yoink", 2) });
+			currentSession.GameFinished += FinishGame;
 		}
 
 		private void FinishGame(List<Player> players)
 		{
+			SessionData.Clear();
+
 			modalContentEndResult.Setup(players);
 			modal.Show(modalContentEndResult);
 		}
@@ -91,7 +94,21 @@ namespace Game.Pages
 
 		private void Unpause()
 		{
-			modal.Hide();	
+			modal.Hide();
+		}
+
+		public void Load(Session.Data sessionData)
+		{
+			currentSession = new Session(board, playerViews);
+			currentSession.Load(sessionData);
+
+			currentSession.GameFinished += FinishGame;
+		}
+
+		private void Save()
+		{
+			SessionData.Store(currentSession.GetData());
+			GotoMenu();
 		}
 
 		private void GotoMenu()

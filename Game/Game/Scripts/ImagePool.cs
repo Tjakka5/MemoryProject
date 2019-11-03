@@ -13,11 +13,13 @@ namespace Game.Scripts
 		public enum FrontTypes
 		{
 			POKEMON,
+			ANIMALS,
 		}
 
 		public enum BackTypes
 		{
 			POKEMON,
+			VINTAGE,
 		}
 
 		public static Dictionary<FrontTypes, List<ImageSource>> frontImages = new Dictionary<FrontTypes, List<ImageSource>>();
@@ -26,8 +28,10 @@ namespace Game.Scripts
 		static ImagePool()
 		{
 			MakeFrontImages("Pokemon", FrontTypes.POKEMON, 22);
+			MakeFrontImages("Animals", FrontTypes.ANIMALS, 24);
 
 			MakeBackImage("Pokemon", BackTypes.POKEMON);
+			MakeBackImage("Vintage", BackTypes.VINTAGE);
 		}
 
 		private static void MakeFrontImages(string name, FrontTypes type, int count)

@@ -44,6 +44,12 @@ namespace Game
 			game.Setup(playerNames);
 		}
 
+		public void NavigateToGame(Session.Data sessionData)
+		{
+			Navigate(game);
+			game.Load(sessionData);
+		}
+
 		public void NavigateToSettings()
 		{
 			Navigate(settings);

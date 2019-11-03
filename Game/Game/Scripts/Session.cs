@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Game.Controls;
 
@@ -6,6 +7,25 @@ namespace Game.Scripts
 {
 	public class Session
 	{
+		[Serializable]
+		public class Data
+		{
+			public readonly List<string> initialPlayerNames = null;
+			public readonly Board.Layouts initialLayout = default;
+			public readonly int currentPlayerIndex = 0;
+			public readonly Board.Data boardData = null;
+			public readonly List<Player.Data> playerDatas = null;
+
+			public Data(List<string> initialPlayerNames, Board.Layouts initialLayout, int currentPlayerIndex, Board.Data boardData, List<Player.Data> playerDatas)
+			{
+				this.initialPlayerNames = initialPlayerNames;
+				this.initialLayout = initialLayout;
+				this.currentPlayerIndex = currentPlayerIndex;
+				this.boardData = boardData;
+				this.playerDatas = playerDatas;
+			}
+		}
+
 		public delegate void GameFinishedHandler(List<Player> players);
 		public event GameFinishedHandler GameFinished;
 
@@ -35,22 +55,20 @@ namespace Game.Scripts
 		private List<string> initialPlayerNames = null;
         private Board.Layouts initialLayout = default;
 
-		public Session(Board board, List<PlayerView> playerViews, List<string> playerNames, Board.Layouts layout)
+		public Session(Board board, List<PlayerView> playerViews)
 		{
 			this.board = board;
 			this.playerViews = playerViews;
+		}
 
+		public void Setup(List<string> playerNames, Board.Layouts layout)
+		{
 			initialPlayerNames = playerNames;
 			initialLayout = layout;
 
-			Start();
-		}
-
-		private void Start()
-		{
 			// Temp
-			ImagePool.FrontTypes frontType = ImagePool.FrontTypes.POKEMON;
-			ImagePool.BackTypes backType = ImagePool.BackTypes.POKEMON;
+			ImagePool.FrontTypes frontType = ImagePool.FrontTypes.ANIMALS;
+			ImagePool.BackTypes backType = ImagePool.BackTypes.VINTAGE;
 
 			// Make board
 			board.Setup(initialLayout, frontType, backType);
@@ -66,7 +84,48 @@ namespace Game.Scripts
 				players.Add(player);
 			}
 
-			// Bind players to views
+			BindPlayersToViews();
+			
+			CurrentPlayerIndex = 0;
+		}
+
+		public void Load(Data data)
+		{
+			initialPlayerNames = data.initialPlayerNames;
+			initialLayout = data.initialLayout;
+
+			board.Load(data.boardData);
+			board.MatchMade += OnMatchMade;
+			board.GameFinished += OnGameFinished;
+
+			foreach (Player.Data playerData in data.playerDatas)
+			{
+				Player player = new Player(playerData);
+				players.Add(player);
+			}
+
+			BindPlayersToViews();
+
+			CurrentPlayerIndex = data.currentPlayerIndex;
+		}
+
+		public Data GetData()
+		{
+			List<Player.Data> playerDatas = new List<Player.Data>();
+			foreach (Player player in players)
+				playerDatas.Add(player.GetData());
+
+			return new Data(
+				initialPlayerNames,
+				initialLayout,
+				currentPlayerIndex,
+				board.GetData(),
+				playerDatas
+			);
+		}
+
+		private void BindPlayersToViews()
+		{
 			for (int i = 0; i < playerViews.Count; i++)
 			{
 				PlayerView playerView = playerViews[i];
@@ -77,11 +136,9 @@ namespace Game.Scripts
 					playerView.Bind(players[i]);
 					playerView.Visibility = Visibility.Visible;
 				}
-				else 
+				else
 					playerView.Visibility = Visibility.Hidden;
 			}
-
-			CurrentPlayerIndex = 0;
 		}
 
 		private void OnMatchMade(bool success)
@@ -114,7 +171,7 @@ namespace Game.Scripts
 		public void Restart()
 		{
 			Stop();
-			Start();
+			Setup(initialPlayerNames, initialLayout);
 		}
 
 		/// <summary>

@@ -15,6 +15,21 @@ namespace Game.Controls
 	/// </summary>
 	public partial class Board : UserControl
 	{
+		[Serializable]
+		public class Data
+		{
+			public readonly List<Card.Data> cards = null;
+			public readonly int cardsLeftCount = 0;
+			public readonly Layouts layout = default;
+
+			public Data(List<Card.Data> cards, int cardsLeftCount, Layouts layout)
+			{
+				this.cards = cards;
+				this.cardsLeftCount = cardsLeftCount;
+				this.layout = layout;
+			}
+		}
+
 		public delegate void MatchMadeHandler(bool success);
 		public event MatchMadeHandler MatchMade;
 
@@ -35,23 +50,27 @@ namespace Game.Controls
 			private set;
 		}
 
-		private List<Card> clickedCards = new List<Card>(2);
-		private int cardsLeft = 0;
-
 		private List<Card> cards = new List<Card>();
+
+		private List<Card> clickedCards = new List<Card>(2);
+		private int cardsLeftCount = 0;
+
+		private Layouts layout = default;
 
 		public Board()
 		{
 			InitializeComponent();
 		}
 
-		public void Setup(Layouts layouts, ImagePool.FrontTypes frontTypes, ImagePool.BackTypes backTypes)
+		public void Setup(Layouts layout, ImagePool.FrontTypes frontTypes, ImagePool.BackTypes backTypes)
 		{
 			cards.Clear();
 			clickedCards.Clear();
-			cardsLeft = 0;
+			cardsLeftCount = 0;
 
-			switch (layouts)
+			this.layout = layout;
+
+			switch (layout)
 			{
 				case Layouts.FourByFour:
 					MakeFourByFour(frontTypes, backTypes);
@@ -66,8 +85,41 @@ namespace Game.Controls
 					MakeSixBySix(frontTypes, backTypes);
 					break;
 			}
+		}
 
-			cardsLeft = 2;
+		public void Load(Data data)
+		{
+			cardsLeftCount = data.cardsLeftCount;
+			layout = data.layout;
+
+			switch (layout)
+			{
+				case Layouts.FourByFour:
+					LoadFourByFour(data.cards);
+					break;
+				case Layouts.FiveByFive:
+					LoadFiveByFive(data.cards);
+					break;
+				case Layouts.SixByFour:
+					LoadSixByFour(data.cards);
+					break;
+				case Layouts.SixBySix:
+					LoadSixBySix(data.cards);
+					break;
+			}
+		}
+
+		public Data GetData()
+		{
+			List<Card.Data> cardsData = new List<Card.Data>();
+			foreach (Card card in cards)
+				cardsData.Add(card.GetData());
+
+			return new Data(
+				cardsData,
+				cardsLeftCount,
+				layout
+			);
 		}
 
 		~Board()
@@ -121,10 +173,12 @@ namespace Game.Controls
 
 		private void MakeCard(int row, int col, int width, int height, ImageDefinition imageDefinition)
 		{
-			Card card = new Card();
+			Card card = new Card()
+			{
+				Width = width,
+				Height = height,
+			};
 			card.Setup(imageDefinition);
-			card.Width = width;
-			card.Height = height;
 			card.Clicked += OnCardClicked;
 			
 			Grid.SetRow(card, row);
@@ -133,7 +187,24 @@ namespace Game.Controls
 			cards.Add(card);
 			grid.Children.Add(card);
 
-			cardsLeft++;
+			cardsLeftCount++;
+		}
+
+		private void LoadCard(Card.Data cardData, int row, int col, int width, int height)
+		{
+			Card card = new Card()
+			{
+				Width = width,
+				Height = height,
+			};
+			card.Load(cardData);
+			card.Clicked += OnCardClicked;
+
+			Grid.SetRow(card, row);
+			Grid.SetColumn(card, col);
+
+			cards.Add(card);
+			grid.Children.Add(card);
 		}
 
 		private void OnCardClicked(Card card)
@@ -183,9 +254,9 @@ namespace Game.Controls
 
 				MatchMade?.Invoke(true);
 
-				cardsLeft -= 2;
+				cardsLeftCount -= 2;
 
-				if (cardsLeft == 0)
+				if (cardsLeftCount == 0)
 					GameFinished?.Invoke();
 			}
 
@@ -193,6 +264,8 @@ namespace Game.Controls
 			clickedCards.Clear();
 			IsChecking = false;
 		}
+
+		#region Create/load grid functions
 
 		private void MakeFourByFour(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
 		{
@@ -202,6 +275,14 @@ namespace Game.Controls
 
 			for (int i = 0; i < 16; i++)
 				MakeCard(i % 4, i / 4, 100, 100, imageDefinitions[i]);
+		}
+
+		private void LoadFourByFour(List<Card.Data> cardDatas)
+		{
+			MakeGrid(4, 4);
+
+			for (int i = 0; i < 16; i++)
+				LoadCard(cardDatas[i], i % 4, i / 4, 100, 100);
 		}
 
 		private void MakeFiveByFive(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
@@ -219,6 +300,19 @@ namespace Game.Controls
 			}
 		}
 
+		private void LoadFiveByFive(List<Card.Data> cardDatas)
+		{
+			MakeGrid(5, 5);
+
+			for (int i = 0; i < 25; i++)
+			{
+				int id = i;
+				if (id == 12) continue; // Skip the center tile
+				if (id > 12) id--;
+				LoadCard(cardDatas[i], i % 5, i / 5, 80, 80);
+			}
+		}
+
 		private void MakeSixByFour(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
 		{
 			List<ImageDefinition> imageDefinitions = PrepareImageDefinitions(frontType, backType, 24);
@@ -227,6 +321,14 @@ namespace Game.Controls
 
 			for (int i = 0; i < 24; i++)
 				MakeCard(i % 4, i / 4, 100, 100, imageDefinitions[i]);
+		}
+
+		private void LoadSixByFour(List<Card.Data> cardDatas)
+		{
+			MakeGrid(6, 4);
+
+			for (int i = 0; i < 24; i++)
+				LoadCard(cardDatas[i], i % 4, i / 4, 100, 100);
 		}
 
 		private void MakeSixBySix(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
@@ -238,5 +340,14 @@ namespace Game.Controls
 			for (int i = 0; i < 36; i++)
 				MakeCard(i % 6, i / 6, 60, 60, imageDefinitions[i]);
 		}
+
+		private void LoadSixBySix(List<Card.Data> cardDatas)
+		{
+			MakeGrid(6, 6);
+
+			for (int i = 0; i < 36; i++)
+				LoadCard(cardDatas[i], i % 6, i / 6, 60, 60);
+		}
+		#endregion
 	}
 }

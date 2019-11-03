@@ -18,6 +18,21 @@ namespace Game.Controls
 	/// </summary>
 	public partial class Card : UserControl
 	{
+		[Serializable]
+		public class Data
+		{
+			public readonly bool isRemoved = false;
+			public readonly int id = 0;
+			public readonly ImageDefinition imageDefinition = null;
+
+			public Data(bool isRemoved, int id, ImageDefinition imageDefinition)
+			{
+				this.isRemoved = isRemoved;
+				this.id = id;
+				this.imageDefinition = imageDefinition;
+			}
+		}
+
 		public delegate void ClickHandler(Card card);
 		public event ClickHandler Clicked;
 
@@ -33,28 +48,58 @@ namespace Game.Controls
 			private set;
 		}
 
+		private bool isRemoved = false;
+
 		public ViewState State
 		{
 			get;
 			private set;
 		}
 
+		private ImageDefinition imageDefinition = null;
+
 		public Card()
 		{
 			InitializeComponent();
-
-			Hide();
 		}
 
 		public void Setup(ImageDefinition imageDefinition)
 		{
+			this.imageDefinition = imageDefinition;
+
 			Id = imageDefinition.frontImageId;
 
 			imageFront.Source = ImagePool.frontImages[imageDefinition.frontImageType][imageDefinition.frontImageId];
 			imageBack.Source = ImagePool.backImages[imageDefinition.backImageType];
+
+			Hide(0.0f);
 		}
 
-		public void Show()
+		public void Load(Data data)
+		{
+			imageDefinition = data.imageDefinition;
+			isRemoved = data.isRemoved;
+			Id = data.id;
+
+			imageFront.Source = ImagePool.frontImages[imageDefinition.frontImageType][imageDefinition.frontImageId];
+			imageBack.Source = ImagePool.backImages[imageDefinition.backImageType];
+
+			Hide(0.0f);
+
+			if (isRemoved)
+				Remove();
+		}
+
+		public Data GetData()
+		{
+			return new Data(
+				isRemoved,
+				Id,
+				imageDefinition
+			);
+		}
+
+		public void Show(float animationDuration = 0.2f)
 		{
 			State = ViewState.FRONT;
 
@@ -62,11 +107,11 @@ namespace Game.Controls
 			imageFront.Visibility = Visibility.Visible;
 			imageBack.Visibility = Visibility.Collapsed;
 
-			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 20), TimeSpan.FromSeconds(0.2f));
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 20), TimeSpan.FromSeconds(animationDuration));
 			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
-		public void Hide()
+		public void Hide(float animationDuration = 0.2f)
 		{
 			State = ViewState.BACK;
 
@@ -74,12 +119,13 @@ namespace Game.Controls
 			imageFront.Visibility = Visibility.Collapsed;
 			imageBack.Visibility = Visibility.Visible;
 
-			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.2f));
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(animationDuration));
 			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
 		public void Remove()
 		{
+			isRemoved = true;
 			Visibility = Visibility.Hidden;
 		}
 

@@ -1,5 +1,8 @@
-﻿namespace Game.Scripts
+﻿using System;
+
+namespace Game.Scripts
 {
+	[Serializable]
 	public class ImageDefinition
 	{
 		public readonly ImagePool.FrontTypes frontImageType = default;
