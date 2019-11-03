@@ -10,7 +10,7 @@
         <Image x:Name="image" Source="pack://application:,,,/Game;component/Resources/Images/modal.png" Stretch="Fill"/>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label x:Name="label" Content="Name" Style="{DynamicResource TitleFont}" />
+            <TextBlock x:Name="label" Text="Content" Margin="10 0 10 0" Style="{DynamicResource TitleFont}" TextWrapping="Wrap"/>
         </StackPanel>
         
     </Grid>

@@ -309,7 +309,7 @@ namespace Game.Controls
 				int id = i;
 				if (id == 12) continue; // Skip the center tile
 				if (id > 12) id--;
-				LoadCard(cardDatas[i], i % 5, i / 5, 80, 80);
+				LoadCard(cardDatas[id], i % 5, i / 5, 80, 80);
 			}
 		}
 

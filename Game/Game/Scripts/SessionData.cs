@@ -39,6 +39,8 @@ namespace Game.Scripts
 
 		public static bool Store(Session.Data sessionData)
 		{
+			Clear();
+
 			EnsureDirectory();
 
 			try

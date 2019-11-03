@@ -46,7 +46,7 @@ namespace Game.Controls
 			if (player == null)
 				return;
 			
-			label.Content = string.Empty;
+			label.Text = string.Empty;
 
 			player.OnScoreUpdate -= UpdateScoreVisual;
 			player.OnTurnChanged -= UpdateTurnVisual;
@@ -56,7 +56,7 @@ namespace Game.Controls
 		{
 			string displayFormat = player.Score == 1 ? displayFormatSingular : displayFormatPlural;
 
-			label.Content = string.Format(displayFormat, player.Name, player.Score);
+			label.Text = string.Format(displayFormat, player.Name, player.Score);
 		}
 
 		private void UpdateTurnVisual(Player player)

@@ -10,9 +10,8 @@
       Title="PageGame">
 
     <Canvas x:Name="windowGame" Width="1272" Height="689" HorizontalAlignment="Center" VerticalAlignment="Center">
-        
-        <Button x:Name="buttonRestart" Content="Restart" Canvas.Right="10" Canvas.Top="10" Width="50" Height="50"/>
-        <Button x:Name="buttonPause" Content="Pause" Canvas.Right="70" Canvas.Top="10" Width="50" Height="50"/>
+
+        <control:ImageButton x:Name="buttonPause" Text="Pauzeren" Canvas.Right="10" Canvas.Top="10" Width="150" Height="50" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
 
         <control:Board x:Name="board" Width="947" Height="539" Canvas.Left="160" Canvas.Top="75"/>
 

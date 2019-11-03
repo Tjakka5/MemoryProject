@@ -55,14 +55,7 @@ namespace Game.Pages
 			modalContentEndResult.ButtonPlayAgainClicked += Restart;
 			modalContentEndResult.ButtonMenuClicked += GotoMenu;
 
-			buttonRestart.Click += OnRestartButtonClicked;
-			buttonPause.Click += OnPauseButtonClicked;
-		}
-
-		~PageGame()
-		{
-			buttonRestart.Click -= OnRestartButtonClicked;
-			buttonPause.Click -= OnPauseButtonClicked;
+			buttonPause.Clicked += OnPauseButtonClicked;
 		}
 
 		/// <summary>
