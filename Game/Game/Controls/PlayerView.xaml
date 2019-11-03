@@ -6,8 +6,12 @@
              xmlns:local="clr-namespace:Game.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="150">
-    <ItemsControl>
-        <Label x:Name="labelName" Content="Name"/>
-        <Label x:Name="labelScore" Content="Score"/>
-    </ItemsControl>
+    <Grid x:Name="grid" Margin="0 0 0 0">
+        <Image x:Name="image" Source="pack://application:,,,/Game;component/Resources/Images/modal.png" Stretch="Fill"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label x:Name="label" Content="Name" Style="{DynamicResource TitleFont}" />
+        </StackPanel>
+        
+    </Grid>
 </UserControl>

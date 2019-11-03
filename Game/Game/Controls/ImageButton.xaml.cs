@@ -48,6 +48,7 @@ namespace Game.Controls
 
 		private bool hovering = false;
 		private bool clicking = false;
+		private bool selected = false;
 
 		public ImageButton()
 		{
@@ -60,6 +61,18 @@ namespace Game.Controls
 			UpdateVisual();
 
 			base.OnApplyTemplate();
+		}
+
+		public void Select()
+		{
+			selected = true;
+			UpdateVisual();
+		}
+
+		public void Deselect()
+		{
+			selected = false;
+			UpdateVisual();
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
@@ -107,22 +120,30 @@ namespace Game.Controls
 			label.Margin = new Thickness(0, 0, 0, 0);
 			image.Source = ImageDefault;
 
-			if (hovering)
+			if (selected)
 			{
-				if (clicking)
-				{
-					image.Source = ImageClick;
-					label.Margin = new Thickness(0, 7, 0, 0);
-				}
-				else
-					image.Source = ImageHover;
+				image.Source = ImageClick;
+				label.Margin = new Thickness(0, 7, 0, 0);
 			}
 			else
 			{
-				if (clicking)
+				if (hovering)
 				{
-					image.Source = ImageClick;
-					label.Margin = new Thickness(0, 7, 0, 0);
+					if (clicking)
+					{
+						image.Source = ImageClick;
+						label.Margin = new Thickness(0, 7, 0, 0);
+					}
+					else
+						image.Source = ImageHover;
+				}
+				else
+				{
+					if (clicking)
+					{
+						image.Source = ImageClick;
+						label.Margin = new Thickness(0, 7, 0, 0);
+					}
 				}
 			}
 		}

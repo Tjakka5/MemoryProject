@@ -4,28 +4,62 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Game.Pages"
+      xmlns:Control="clr-namespace:Game.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="689" d:DesignWidth="1272"
       Title="PageSettings">
 
     <StackPanel Orientation="Vertical">
-        <Label Content="Kies aantal spelers" Style="{StaticResource Font}" FontSize="80px" HorizontalAlignment="Center" Margin="0 20 0 -10"/>
+        <Label Content="Kies spelers" Style="{StaticResource Font}" FontSize="48px" HorizontalAlignment="Center" Margin="0 0 0 -10"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="ButtonTwoPlayers" Width="120" Height="60" Margin="20 0 20 0" Click="OnButtonTwoPlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
-                <Image Source="..//Resources/Images/TwoPlayers.png" Stretch="None"/>
-            </Button>
-
-            <Button x:Name="ButtonThreePLayers" Width="120" Margin="20 0 20 0" Click="OnButtonThreePlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
-                <Image Source="..//Resources/Images/ThreePlayers.png" Stretch="None"/>
-            </Button>
-
-            <Button x:Name="ButtonFourPlayers" Width="120" Margin="20 0 20 0" Click="OnButtonFourPlayersClicked" Background="#FF761980" BorderBrush="{x:Null}">
-                <Image Source="..//Resources/Images/FourPlayers.png" Stretch="None"/>
-            </Button>
+            <Control:ImageButton x:Name="buttonTwoPlayers" Text="2 Spelers" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+            <Control:ImageButton x:Name="buttonThreePlayers" Text="3 Spelers" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+            <Control:ImageButton x:Name="buttonFourPlayers" Text="4 Spelers" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
         </StackPanel>
 
-        <StackPanel x:Name="textInputs" Orientation="Horizontal" Height="20" Margin="0 50 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Click="OnButtonPlayClicked"/>
+        <StackPanel x:Name="textInputs" Orientation="Horizontal" Height="50" Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <Label Content="Kies kaartspel" Style="{StaticResource Font}" FontSize="48px" HorizontalAlignment="Center" Margin="0 20 0 -15"/>
+        <StackPanel Orientation="Vertical">
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 -20 0 0">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="20 0 20 0">
+                    <Label Content="Voorkant" Style="{StaticResource Font}" HorizontalAlignment="Center" FontSize="32px" Margin="0 0 0 -30"/>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="150">
+                        <Control:CardSelect x:Name="cardForePokemon" ShownImage="pack://application:,,,/Game;component/Resources/FrontImages/Pokemon/1.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/FrontImages/BaseFront.png" Margin="10 0 10 0"/>
+                        <Control:CardSelect x:Name="cardForeAnimals" ShownImage="pack://application:,,,/Game;component/Resources/FrontImages/Animals/1.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/FrontImages/BaseFront.png" Margin="10 0 10 0"/>
+                        <Control:CardSelect x:Name="cardForeMario" ShownImage="pack://application:,,,/Game;component/Resources/FrontImages/Mario/1.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/FrontImages/BaseFront.png" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="20 0 20 0">
+                    <Label Content="Achterkant" Style="{StaticResource Font}" HorizontalAlignment="Center" FontSize="32px" Margin="0 0 0 -30"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="150">
+                        <Control:CardSelect x:Name="cardBackPokemon" ShownImage="pack://application:,,,/Game;component/Resources/BackImages/Pokemon.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/BackImages/Pokemon.png" Margin="10 0 10 0"/>
+                        <Control:CardSelect x:Name="cardBackVintage" ShownImage="pack://application:,,,/Game;component/Resources/BackImages/Vintage.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/BackImages/Pokemon.png" Margin="10 0 10 0"/>
+                        <Control:CardSelect x:Name="cardBackMario" ShownImage="pack://application:,,,/Game;component/Resources/BackImages/Mario.png" ShownImageSecondary="pack://application:,,,/Game;component/Resources/BackImages/Pokemon.png" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Content="Kies bord grootte" Style="{StaticResource Font}" FontSize="48px" HorizontalAlignment="Center" Margin="0 20 0 -10"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Control:ImageButton x:Name="buttonFourByFour" Text="4 x 4" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+            <Control:ImageButton x:Name="buttonFiveByFive" Text="5 x 5" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+            <Control:ImageButton x:Name="buttonSixByFour" Text="6 x 4" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+            <Control:ImageButton x:Name="buttonSixBySix" Text="6 x 6" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png" Margin="10 0 10 0"/>
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal" Margin="0 60 0 0" HorizontalAlignment="Center">
+            <Control:ImageButton x:Name="buttonBack" Text="Terug" Width="400" Height="60" Margin="20 0 20 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+            <Control:ImageButton x:Name="buttonPlay" Text="Spelen" Width="400" Height="60" Margin="20 0 20 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+        </StackPanel>
+       
     </StackPanel>
 </Page>

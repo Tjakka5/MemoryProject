@@ -14,12 +14,14 @@ namespace Game.Scripts
 		{
 			POKEMON,
 			ANIMALS,
+			MARIO,
 		}
 
 		public enum BackTypes
 		{
 			POKEMON,
 			VINTAGE,
+			MARIO,
 		}
 
 		public static Dictionary<FrontTypes, List<ImageSource>> frontImages = new Dictionary<FrontTypes, List<ImageSource>>();
@@ -29,9 +31,11 @@ namespace Game.Scripts
 		{
 			MakeFrontImages("Pokemon", FrontTypes.POKEMON, 22);
 			MakeFrontImages("Animals", FrontTypes.ANIMALS, 24);
+			MakeFrontImages("Mario", FrontTypes.MARIO, 18);
 
 			MakeBackImage("Pokemon", BackTypes.POKEMON);
 			MakeBackImage("Vintage", BackTypes.VINTAGE);
+			MakeBackImage("Mario", BackTypes.MARIO);
 		}
 
 		private static void MakeFrontImages(string name, FrontTypes type, int count)
@@ -47,7 +51,7 @@ namespace Game.Scripts
 
 		private static void MakeBackImage(string name, BackTypes type)
 		{
-			backImages[type] = new BitmapImage(new Uri(@"pack://application:,,,/Game;component/Resources/BackImages/Pokemon.png"));
+			backImages[type] = new BitmapImage(new Uri(@"pack://application:,,,/Game;component/Resources/BackImages/" + name + ".png"));
 		}
 	}
 }

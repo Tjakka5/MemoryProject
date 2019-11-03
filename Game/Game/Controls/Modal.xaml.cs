@@ -42,10 +42,10 @@ namespace Game.Controls
 
 		public virtual void Hide()
 		{
-			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, -700, 0, 700), TimeSpan.FromSeconds(0.6f));
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, -700, 0, 700), TimeSpan.FromSeconds(0.8f));
 			thicknessAnimation.EasingFunction = new ExponentialEase()
 			{
-				EasingMode = EasingMode.EaseIn,
+				EasingMode = EasingMode.EaseOut,
 			};
 			thicknessAnimation.Completed += EndHide;
 

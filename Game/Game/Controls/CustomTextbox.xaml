@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Game.Controls.CustomTextbox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Game.Controls"
+             mc:Ignorable="d" 
+             Width="200" Height="50"
+             Margin="10 0 10 0"
+             d:DesignHeight="50" d:DesignWidth="200">
+    <Grid>
+        <Image Source="pack://application:,,,/Game;component/Resources/Images/modal.png" Stretch="Fill"/>
+        <TextBox x:Name="textbox" Style="{DynamicResource TitleFont}" FontSize="18px" Width="200" Height="50" MaxLength="16" Background="Transparent" BorderBrush="Transparent" SelectionBrush="Transparent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+    </Grid>
+</UserControl>

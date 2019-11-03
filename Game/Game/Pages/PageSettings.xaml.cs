@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Game.Controls;
+using Game.Scripts;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,14 +24,40 @@ namespace Game.Pages
 	public partial class PageSettings : Page
 	{
 		private MainWindow window;
+	
+		private List<CustomTextbox> textBoxes = new List<CustomTextbox>(4);
 
-		private List<TextBox> textBoxes = new List<TextBox>(4);
+		private CardSelect selectedForeCard = null;
+		private CardSelect selectedBackCard = null;
+
+		private ImageButton selectedGridSizeButton = null;
+
 		public PageSettings(MainWindow window)
 		{
 			this.window = window;
 
 			InitializeComponent();
 
+			buttonTwoPlayers.MouseDown += OnButtonTwoPlayersClicked;
+			buttonThreePlayers.MouseDown += OnButtonThreePlayersClicked;
+			buttonFourPlayers.MouseDown += OnButtonFourPlayersClicked;
+
+			cardForePokemon.Clicked += OnCardSelectForeClicked;
+			cardForeAnimals.Clicked += OnCardSelectForeClicked;
+			cardForeMario.Clicked += OnCardSelectForeClicked;
+
+			cardBackPokemon.Clicked += OnCardSelectBackClicked;
+			cardBackVintage.Clicked += OnCardSelectBackClicked;
+			cardBackMario.Clicked += OnCardSelectBackClicked;
+
+			buttonFourByFour.Clicked += OnButtonGridSizeClicked;
+			buttonFiveByFive.Clicked += OnButtonGridSizeClicked;
+			buttonSixByFour.Clicked += OnButtonGridSizeClicked;
+			buttonSixBySix.Clicked += OnButtonGridSizeClicked;
+
+			buttonBack.Clicked += OnBackButtonClicked;
+
+			buttonPlay.Clicked += OnButtonPlayClicked;
 			buttonPlay.IsEnabled = false;
 
 			MakeTextBoxes(2);
@@ -63,13 +91,8 @@ namespace Game.Pages
 
 				for (int i = 0; i < toMake; i++)
 				{
-					TextBox textBox = new TextBox
-					{
-						Width = 150,
-						Margin = new Thickness(10, 0, 10, 0),
-						MaxLength = 16,
-					};
-					textBox.TextChanged += OnTextChanged;
+					CustomTextbox textBox = new CustomTextbox();
+					textBox.textbox.TextChanged += OnTextChanged;
 
 					textBoxes.Add(textBox);
 					textInputs.Children.Add(textBox);
@@ -81,7 +104,7 @@ namespace Game.Pages
 				int toDelete = textBoxes.Count - newCount;
 				for (int i = 0; i < toDelete; i++)
 				{
-					TextBox textBox = textBoxes[textBoxes.Count - 1];
+					CustomTextbox textBox = textBoxes[textBoxes.Count - 1];
 
 					textBoxes.Remove(textBox);
 					textInputs.Children.Remove(textBox);
@@ -97,11 +120,17 @@ namespace Game.Pages
 		/// <returns></returns>
 		private bool CheckValidStart()
 		{
-			foreach (TextBox textBox in textBoxes)
+			foreach (CustomTextbox textBox in textBoxes)
 			{
-				if (textBox.Text == string.Empty)
+				if (textBox.textbox.Text == string.Empty)
 					return false;
 			}
+
+			if (selectedForeCard == null)
+				return false;
+
+			if (selectedBackCard == null)
+				return false;
 
 			// More checks?
 
@@ -126,18 +155,97 @@ namespace Game.Pages
 			UpdateButtonPlayState();
 		}
 
+		private void OnCardSelectForeClicked(object sender, MouseEventArgs e)
+		{
+			CardSelect cardSelect = sender as CardSelect;
+
+			if (selectedForeCard != null)
+				selectedForeCard.Deselect();
+
+			selectedForeCard = cardSelect;
+			cardSelect.Select();
+
+			UpdateButtonPlayState();
+		}
+		
+
+		private void OnCardSelectBackClicked(object sender, MouseEventArgs e)
+		{
+			CardSelect cardSelect = sender as CardSelect;
+
+			if (selectedBackCard != null)
+				selectedBackCard.Deselect();
+
+			selectedBackCard = cardSelect;
+			cardSelect.Select();
+
+			UpdateButtonPlayState();
+		}
+		
+		private void OnButtonGridSizeClicked(object sender, MouseEventArgs e)
+		{
+			ImageButton imageButton = sender as ImageButton;
+
+			if (selectedGridSizeButton != null)
+				selectedGridSizeButton.Deselect();
+
+			selectedGridSizeButton = imageButton;
+			imageButton.Select();
+
+			UpdateButtonPlayState();
+		}
+		
+		private void OnBackButtonClicked(object sender, MouseEventArgs e)
+		{
+			window.NavigateToMenu();
+		}
+
 		/// <summary>
 		/// On play button clicked
 		/// </summary>
 		/// <param name="sender">Sender</param>
 		/// <param name="e">Events</param>
-		private void OnButtonPlayClicked(object sender, RoutedEventArgs e)
+		private void OnButtonPlayClicked(object sender, MouseEventArgs e)
 		{
+			// Create lists of players
 			List<string> playerNames = new List<string>();
-			foreach (TextBox textBox in textBoxes)
-				playerNames.Add(textBox.Text);
+			foreach (CustomTextbox textBox in textBoxes)
+				playerNames.Add(textBox.textbox.Text);
 
-			window.NavigateToGame(playerNames);
+			// Create front type
+			ImagePool.FrontTypes frontType = default;
+
+			if (selectedForeCard == cardForePokemon)
+				frontType = ImagePool.FrontTypes.POKEMON;
+			else if (selectedForeCard == cardForeAnimals)
+				frontType = ImagePool.FrontTypes.ANIMALS;
+			else if (selectedForeCard == cardForeMario)
+				frontType = ImagePool.FrontTypes.MARIO;
+
+			// Create back type
+			ImagePool.BackTypes backType = default;
+
+			if (selectedBackCard == cardBackPokemon)
+				backType = ImagePool.BackTypes.POKEMON;
+			else if (selectedBackCard == cardBackVintage)
+				backType = ImagePool.BackTypes.VINTAGE;
+			else if (selectedBackCard == cardBackPokemon)
+				backType = ImagePool.BackTypes.MARIO;
+
+			// Create boar layout
+			Board.Layouts layout = default;
+
+			if (selectedGridSizeButton == buttonFourByFour)
+				layout = Board.Layouts.FourByFour;
+			else if (selectedGridSizeButton == buttonFiveByFive)
+				layout = Board.Layouts.FiveByFive;
+			else if (selectedGridSizeButton == buttonSixByFour)
+				layout = Board.Layouts.SixByFour;
+			else if (selectedGridSizeButton == buttonSixBySix)
+				layout = Board.Layouts.SixBySix;
+
+			// Navigate
+			window.NavigateToGame(playerNames, frontType, backType, layout);
 		}
 	}
 }

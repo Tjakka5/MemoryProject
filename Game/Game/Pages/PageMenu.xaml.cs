@@ -12,6 +12,9 @@ namespace Game.Pages
 	{
 		private MainWindow window = null;
 
+		private bool hasSessionData = false;
+		private Session.Data sessionData = null;
+
 		public PageMenu(MainWindow window)
 		{
 			InitializeComponent();
@@ -21,6 +24,8 @@ namespace Game.Pages
 			buttonPlay.Clicked += OnButtonPlayClicked;
 			buttonHighscores.Clicked += OnButtonHighscoresClicked;
 			buttonResume.Clicked += OnButtonResumeClicked;
+
+			buttonResume.IsEnabled = SessionData.Load(out sessionData);
 		}
 
 		private void OnButtonPlayClicked(object sender, RoutedEventArgs e)
@@ -30,9 +35,7 @@ namespace Game.Pages
 
 		private void OnButtonResumeClicked(object sender, RoutedEventArgs e)
 		{
-			Session.Data sessionData = null;
-			if (SessionData.Load(out sessionData))
-				window.NavigateToGame(sessionData);
+			window.NavigateToGame(sessionData);
 		}
 
 		private void OnButtonHighscoresClicked(object sender, RoutedEventArgs e)

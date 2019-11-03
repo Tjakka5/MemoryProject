@@ -1,6 +1,10 @@
 ﻿using Game.Scripts;
+using System;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
+using System.Windows.Shapes;
 
 namespace Game.Controls
 {
@@ -11,7 +15,14 @@ namespace Game.Controls
 	{
 		private readonly string displayFormatSingular = "{0} heeft {1} punt";
 		private readonly string displayFormatPlural = "{0} heeft {1} punten";
-		
+
+		private DropShadowEffect effect = new DropShadowEffect()
+		{
+			ShadowDepth = 15,
+			BlurRadius = 3,
+			Opacity = 0.2f,
+		};
+
 		private Player player = null;
 
 		public PlayerView()
@@ -23,8 +34,6 @@ namespace Game.Controls
 		{
 			this.player = player;
 
-			labelName.Content = player.Name;
-			
 			player.OnScoreUpdate += UpdateScoreVisual;
 			UpdateScoreVisual(player);
 
@@ -37,8 +46,7 @@ namespace Game.Controls
 			if (player == null)
 				return;
 			
-			labelName.Content = string.Empty;
-			labelScore.Content = string.Empty;
+			label.Content = string.Empty;
 
 			player.OnScoreUpdate -= UpdateScoreVisual;
 			player.OnTurnChanged -= UpdateTurnVisual;
@@ -48,15 +56,25 @@ namespace Game.Controls
 		{
 			string displayFormat = player.Score == 1 ? displayFormatSingular : displayFormatPlural;
 
-			labelScore.Content = string.Format(displayFormat, player.Name, player.Score);
+			label.Content = string.Format(displayFormat, player.Name, player.Score);
 		}
 
 		private void UpdateTurnVisual(Player player)
 		{
 			if (player.HasTurn)
-				Background = Brushes.HotPink;
+			{
+				ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, -10, 0, 10), TimeSpan.FromSeconds(0.2f));
+				grid.BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
+
+				image.Effect = effect;
+			}
 			else
-				Background = Brushes.AliceBlue;
+			{
+				ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.2f));
+				grid.BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
+
+				image.Effect = null;
+			}
 		}
 	}
 }

@@ -52,8 +52,16 @@ namespace Game.Scripts
 			}
 		}
 
+		public bool Done
+		{
+			get;
+			private set;
+		} = false;
+
 		private List<string> initialPlayerNames = null;
-        private Board.Layouts initialLayout = default;
+		private ImagePool.FrontTypes initialFrontType = default;
+		private ImagePool.BackTypes initialBackType = default;
+		private Board.Layouts initialLayout = default;
 
 		public Session(Board board, List<PlayerView> playerViews)
 		{
@@ -61,14 +69,14 @@ namespace Game.Scripts
 			this.playerViews = playerViews;
 		}
 
-		public void Setup(List<string> playerNames, Board.Layouts layout)
+		public void Setup(List<string> playerNames, ImagePool.FrontTypes frontType, ImagePool.BackTypes backType, Board.Layouts layout)
 		{
-			initialPlayerNames = playerNames;
-			initialLayout = layout;
+			Done = false;
 
-			// Temp
-			ImagePool.FrontTypes frontType = ImagePool.FrontTypes.ANIMALS;
-			ImagePool.BackTypes backType = ImagePool.BackTypes.VINTAGE;
+			initialPlayerNames = playerNames;
+			initialFrontType = frontType;
+			initialBackType = backType;
+			initialLayout = layout;
 
 			// Make board
 			board.Setup(initialLayout, frontType, backType);
@@ -91,6 +99,8 @@ namespace Game.Scripts
 
 		public void Load(Data data)
 		{
+			Done = false;
+
 			initialPlayerNames = data.initialPlayerNames;
 			initialLayout = data.initialLayout;
 
@@ -151,6 +161,8 @@ namespace Game.Scripts
 
 		private void OnGameFinished()
 		{
+			Done = true;
+
 			foreach (Player player in players)
 				HighscoreData.Add(new HighscoreData.Data(player.Name, player.Score, initialLayout));
 
@@ -171,7 +183,7 @@ namespace Game.Scripts
 		public void Restart()
 		{
 			Stop();
-			Setup(initialPlayerNames, initialLayout);
+			Setup(initialPlayerNames, initialFrontType, initialBackType, initialLayout);
 		}
 
 		/// <summary>

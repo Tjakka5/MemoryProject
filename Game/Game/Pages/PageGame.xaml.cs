@@ -49,6 +49,7 @@ namespace Game.Pages
             modalContentPause.ButtonRestartClicked += Restart;
 			modalContentPause.ButtonResumeClicked += Unpause;
 			modalContentPause.ButtonMenuClicked += Save;
+			modalContentPause.ButtonMenuClicked += GotoMenu;
 
 			modalContentEndResult = new ModalContentEndResult();
 			modalContentEndResult.ButtonPlayAgainClicked += Restart;
@@ -61,18 +62,17 @@ namespace Game.Pages
 		~PageGame()
 		{
 			buttonRestart.Click -= OnRestartButtonClicked;
-			buttonPause.Click += OnPauseButtonClicked;
+			buttonPause.Click -= OnPauseButtonClicked;
 		}
 
 		/// <summary>
 		/// Starts a game session
 		/// </summary>
 		/// <param name="playerNames">List of player names</param>
-		public void Setup(List<string> playerNames)
+		public void Setup(List<string> playerNames, ImagePool.FrontTypes frontType, ImagePool.BackTypes backType, Board.Layouts layout)
 		{
 			currentSession = new Session(board, playerViews);
-			//currentSession.Load();
-			currentSession.Setup(playerNames, Board.Layouts.FourByFour);
+			currentSession.Setup(playerNames, frontType, backType, layout);
 
 			currentSession.GameFinished += FinishGame;
 		}
@@ -105,10 +105,10 @@ namespace Game.Pages
 			currentSession.GameFinished += FinishGame;
 		}
 
-		private void Save()
+		public void Save()
 		{
-			SessionData.Store(currentSession.GetData());
-			GotoMenu();
+			if (!currentSession.Done)
+				SessionData.Store(currentSession.GetData());
 		}
 
 		private void GotoMenu()

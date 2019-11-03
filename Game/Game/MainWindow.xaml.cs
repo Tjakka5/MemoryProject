@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Game.Controls;
@@ -13,19 +13,11 @@ namespace Game
 	/// </summary>
 	public partial class MainWindow : NavigationWindow
 	{
-		private PageMenu menu = null;
-		private PageGame game = null;
-		private PageSettings settings = null;
-		private PageHighscores highscores = null;
+		private Page currentPage = null;
 
         public MainWindow()
 		{
 			InitializeComponent();
-
-			menu = new PageMenu(this);
-			game = new PageGame(this);
-			settings = new PageSettings(this);
-			highscores = new PageHighscores(this);
 
 			ShowsNavigationUI = false;
 			
@@ -33,30 +25,53 @@ namespace Game
 			//NavigateToGame(new List<string>() { "Player_1", "Player_2" });
         }
 
+		protected override void OnClosed(EventArgs args)
+		{
+			if (currentPage.GetType() == typeof(PageGame))
+				(currentPage as PageGame).Save();
+
+			base.OnClosed(args);
+		}
+
 		public void NavigateToMenu()
 		{
+			PageMenu menu = new PageMenu(this);
+
+			currentPage = menu;
 			Navigate(menu);
 		}
 
-		public void NavigateToGame(List<string> playerNames)
+		public void NavigateToGame(List<string> playerNames, ImagePool.FrontTypes frontType, ImagePool.BackTypes backType, Board.Layouts layout)
 		{
+			PageGame game = new PageGame(this);
+
+			currentPage = game;
 			Navigate(game);
-			game.Setup(playerNames);
+			game.Setup(playerNames, frontType, backType, layout);
 		}
 
 		public void NavigateToGame(Session.Data sessionData)
 		{
+			PageGame game = new PageGame(this);
+
+			currentPage = game;
 			Navigate(game);
 			game.Load(sessionData);
 		}
 
 		public void NavigateToSettings()
 		{
+			PageSettings settings = new PageSettings(this);
+
+			currentPage = settings;
 			Navigate(settings);
 		}
 
 		public void NavigateToHighscores()
 		{
+			PageHighscores highscores = new PageHighscores(this);
+
+			currentPage = highscores;
 			Navigate(highscores);
 		}
     }
