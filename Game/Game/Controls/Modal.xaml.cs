@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace Game.Controls
 {
@@ -14,7 +17,8 @@ namespace Game.Controls
         {
             InitializeComponent();
 
-			Hide();
+			ContainerContent.Margin = new Thickness(0, -700, 0, 700);
+			Visibility = Visibility.Collapsed;
 		}
 
 		public virtual void Show(UserControl modelContent)
@@ -26,9 +30,29 @@ namespace Game.Controls
 			this.modelContent = modelContent;
 
 			Visibility = Visibility.Visible;
+
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.8f));
+			thicknessAnimation.EasingFunction = new ElasticEase()
+			{
+				Oscillations = 1,
+			};
+
+			ContainerContent.BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
 		public virtual void Hide()
+		{
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, -700, 0, 700), TimeSpan.FromSeconds(0.6f));
+			thicknessAnimation.EasingFunction = new ExponentialEase()
+			{
+				EasingMode = EasingMode.EaseIn,
+			};
+			thicknessAnimation.Completed += EndHide;
+
+			ContainerContent.BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
+		}
+
+		private void EndHide(object sender, EventArgs e)
 		{
 			if (modelContent != null)
 			{

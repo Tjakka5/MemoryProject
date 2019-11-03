@@ -72,6 +72,8 @@ namespace Game.Pages
 		{
 			currentSession = new Session(board, playerViews, playerNames, Board.Layouts.FourByFour);
 			currentSession.GameFinished += FinishGame;
+
+			//FinishGame(new List<Player>() { new Player("Yeet", 5), new Player("Yoink", 2) });
 		}
 
 		private void FinishGame(List<Player> players)
@@ -85,7 +87,7 @@ namespace Game.Pages
 			Unpause();
 
             currentSession.Restart();
-        }
+		}
 
 		private void Unpause()
 		{

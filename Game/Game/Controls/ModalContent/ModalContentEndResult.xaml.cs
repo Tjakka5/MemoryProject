@@ -33,6 +33,9 @@ namespace Game.Controls.ModalContent
 				labelPlayerThreeResult,
 				labelPlayerFourResult,
 			};
+
+			buttonPlayAgain.Clicked += OnButtonPlayAgainClicked;
+			buttonMenu.Clicked += OnButtonMenuClicked;
 		}
 
 		public void Setup(List<Player> players)
@@ -57,7 +60,7 @@ namespace Game.Controls.ModalContent
 				}
 				else 
 					// Else. Hide the label
-					label.Visibility = Visibility.Collapsed;
+					label.Visibility = Visibility.Hidden;
 			}
 		}
 

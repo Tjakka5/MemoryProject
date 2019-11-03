@@ -20,6 +20,10 @@ namespace Game.Controls.ModalContent
         public ModalContentPause()
         {
             InitializeComponent();
+
+			buttonRestart.Clicked += OnButtonRestartClicked;
+			buttonResume.Clicked += OnButtonResumeClicked;
+			buttonMenu.Clicked += OnButtonMenuClicked;
         }
 
         private void OnButtonRestartClicked(object sender, RoutedEventArgs e)

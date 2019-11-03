@@ -3,6 +3,7 @@ using Framework.Scheduling;
 using Game.Scripts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,7 +25,7 @@ namespace Game.Controls
 		{
 			FourByFour,
 			FiveByFive,
-			FourBySix,
+			SixByFour,
 			SixBySix,
 		};
 
@@ -58,13 +59,15 @@ namespace Game.Controls
 				case Layouts.FiveByFive:
 					MakeFiveByFive(frontTypes, backTypes);
 					break;
-				case Layouts.FourBySix:
-					MakeFourBySix(frontTypes, backTypes);
+				case Layouts.SixByFour:
+					MakeSixByFour(frontTypes, backTypes);
 					break;
 				case Layouts.SixBySix:
 					MakeSixBySix(frontTypes, backTypes);
 					break;
 			}
+
+			cardsLeft = 2;
 		}
 
 		~Board()
@@ -116,12 +119,12 @@ namespace Game.Controls
 			return newImageDefintions;
 		}
 
-		private void MakeCard(int row, int col, ImageDefinition imageDefinition)
+		private void MakeCard(int row, int col, int width, int height, ImageDefinition imageDefinition)
 		{
 			Card card = new Card();
 			card.Setup(imageDefinition);
-			card.Width = 100;
-			card.Height = 100;
+			card.Width = width;
+			card.Height = height;
 			card.Clicked += OnCardClicked;
 			
 			Grid.SetRow(card, row);
@@ -198,7 +201,7 @@ namespace Game.Controls
 			MakeGrid(4, 4);
 
 			for (int i = 0; i < 16; i++)
-				MakeCard(i % 4, i / 4, imageDefinitions[i]);
+				MakeCard(i % 4, i / 4, 100, 100, imageDefinitions[i]);
 		}
 
 		private void MakeFiveByFive(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
@@ -212,18 +215,18 @@ namespace Game.Controls
 				int id = i;
 				if (id == 12) continue; // Skip the center tile
 				if (id > 12) id--;
-				MakeCard(i % 5, i / 5, imageDefinitions[id]);
+				MakeCard(i % 5, i / 5, 80, 80, imageDefinitions[id]);
 			}
 		}
 
-		private void MakeFourBySix(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
+		private void MakeSixByFour(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
 		{
 			List<ImageDefinition> imageDefinitions = PrepareImageDefinitions(frontType, backType, 24);
 
-			MakeGrid(4, 6);
+			MakeGrid(6, 4);
 
 			for (int i = 0; i < 24; i++)
-				MakeCard(i % 6, i / 6, imageDefinitions[i]);
+				MakeCard(i % 4, i / 4, 100, 100, imageDefinitions[i]);
 		}
 
 		private void MakeSixBySix(ImagePool.FrontTypes frontType, ImagePool.BackTypes backType)
@@ -233,7 +236,7 @@ namespace Game.Controls
 			MakeGrid(6, 6);
 
 			for (int i = 0; i < 36; i++)
-				MakeCard(i % 6, i / 6, imageDefinitions[i]);
+				MakeCard(i % 6, i / 6, 60, 60, imageDefinitions[i]);
 		}
 	}
 }

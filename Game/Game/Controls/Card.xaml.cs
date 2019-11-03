@@ -1,10 +1,15 @@
-﻿using Game.Scripts;
+﻿using Framework.Scheduling;
+using Game.Scripts;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Game.Controls
 {
@@ -53,16 +58,24 @@ namespace Game.Controls
 		{
 			State = ViewState.FRONT;
 
+			imageFrontBase.Visibility = Visibility.Visible;
 			imageFront.Visibility = Visibility.Visible;
 			imageBack.Visibility = Visibility.Collapsed;
+
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 20), TimeSpan.FromSeconds(0.2f));
+			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
 		public void Hide()
 		{
 			State = ViewState.BACK;
 
+			imageFrontBase.Visibility = Visibility.Collapsed;
 			imageFront.Visibility = Visibility.Collapsed;
 			imageBack.Visibility = Visibility.Visible;
+
+			ThicknessAnimation thicknessAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.2f));
+			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
 		public void Remove()

@@ -4,14 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Game.Controls.ModalContent"
+             xmlns:Control="clr-namespace:Game.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <Button x:Name="buttonRestart" Content="Spel Resetten" Margin="100 40 100 40" Click="OnButtonRestartClicked"/>
-        <Button x:Name="buttonResume" Content="Spel Hervatten" Margin="100 40 100 40" Click="OnButtonResumeClicked"/>
-        <Button x:Name="buttonMenu" Content="Menu" Margin="100 40 100 40" Click="OnButtonMenuClicked"/>
-        
-       
-
+        <Label Content="Spel gepauzeerd!" Style="{DynamicResource TitleFont}" FontSize="40" HorizontalAlignment="Center" Margin="0, 20, 0, 0"/>
+        <Control:ImageButton x:Name="buttonRestart" Text="Spel resetten" Width="400" Height="60" Margin="0 30 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+        <Control:ImageButton x:Name="buttonResume" Text="Spel hervatten" Width="400" Height="60" Margin="0 40 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+        <Control:ImageButton x:Name="buttonMenu" Text="Menu" Width="400" Height="60" Margin="0 40 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
     </StackPanel>
 </UserControl>

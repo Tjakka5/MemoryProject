@@ -1,0 +1,27 @@
+﻿<Page x:Class="Game.Pages.PageHighscores"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Game.Pages"
+      xmlns:Control="clr-namespace:Game.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="689" d:DesignWidth="1272"
+      Title="PageHighscores">
+
+    <StackPanel Orientation="Vertical">
+        <Label Content="Highscores" Style="{ DynamicResource TitleFont }" FontSize="48" HorizontalAlignment="Center" Margin="0 20 0 0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <Control:HighscoreContainer Layout="FourByFour"  Width="400" Height="200" Margin="0 0 50 0"/>
+            <Control:HighscoreContainer Layout="FiveByFive" Width="400" Height="200" Margin="50 0 0 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 50 0 0">
+            <Control:HighscoreContainer Layout="SixByFour" Width="400" Height="200" Margin="0 0 50 0"/>
+            <Control:HighscoreContainer Layout="SixBySix" Width="400" Height="200" Margin="50 0 0 0"/>
+        </StackPanel>
+
+        <Control:ImageButton x:Name="buttonBack" Text="Terug" Width="400" Height="60" Margin="0 35 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+    </StackPanel>
+</Page>

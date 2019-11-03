@@ -6,5 +6,5 @@
              xmlns:local="clr-namespace:Game.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
-    <Grid x:Name="grid" ShowGridLines="True" Margin="0"/>
+    <Grid x:Name="grid" Margin="0"/>
 </UserControl>

@@ -16,11 +16,19 @@ namespace Game.Pages
 			InitializeComponent();
 
 			this.window = window;
+
+			buttonPlay.Clicked += OnButtonPlayClicked;
+			buttonHighscores.Clicked += OnButtonHighscoresClicked;
 		}
 
 		private void OnButtonPlayClicked(object sender, RoutedEventArgs e)
 		{
 			window.NavigateToSettings();
+		}
+
+		private void OnButtonHighscoresClicked(object sender, RoutedEventArgs e)
+		{
+			window.NavigateToHighscores();
 		}
 	}
 }

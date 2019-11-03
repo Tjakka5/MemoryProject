@@ -7,8 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200"
              Margin="5">
-    <ItemsControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
+        <Image x:Name="imageFrontBase" Source="..//Resources/FrontImages/BaseFront.png" Stretch="UniformToFill">
+            <Image.Effect>
+                <DropShadowEffect ShadowDepth="15" BlurRadius="3" Opacity="0.2" />
+            </Image.Effect>
+        </Image>
         <Image x:Name="imageBack" Stretch="UniformToFill"/>
         <Image x:Name="imageFront" Stretch="UniformToFill"/>
-    </ItemsControl>
+    </Grid>
 </UserControl>

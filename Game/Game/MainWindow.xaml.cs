@@ -16,6 +16,7 @@ namespace Game
 		private PageMenu menu = null;
 		private PageGame game = null;
 		private PageSettings settings = null;
+		private PageHighscores highscores = null;
 
         public MainWindow()
 		{
@@ -24,9 +25,10 @@ namespace Game
 			menu = new PageMenu(this);
 			game = new PageGame(this);
 			settings = new PageSettings(this);
+			highscores = new PageHighscores(this);
 
 			ShowsNavigationUI = false;
-
+			
 			NavigateToMenu();
 			//NavigateToGame(new List<string>() { "Player_1", "Player_2" });
         }
@@ -45,6 +47,11 @@ namespace Game
 		public void NavigateToSettings()
 		{
 			Navigate(settings);
+		}
+
+		public void NavigateToHighscores()
+		{
+			Navigate(highscores);
 		}
     }
 }

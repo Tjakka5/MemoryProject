@@ -4,19 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Game.Controls.ModalContent"
+             xmlns:Control="clr-namespace:Game.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Orientation="Vertical">
-        <Label Content="Spel voorbij" HorizontalAlignment="Center"/>
-        
-        <Label x:Name="labelPlayerOneResult" Content="Player 1 Score:" HorizontalAlignment="Center"/>
-        <Label x:Name="labelPlayerTwoResult" Content="Player 2 Score:" HorizontalAlignment="Center"/>
-        <Label x:Name="labelPlayerThreeResult" Content="Player 3 Score:" HorizontalAlignment="Center"/>
-        <Label x:Name="labelPlayerFourResult" Content="Player 4 Score:" HorizontalAlignment="Center"/>
+             d:DesignHeight="400" d:DesignWidth="700">
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="buttonPlayAgain" Content="Opnieuw spelen" Width="100" Margin="40 0 40 0" Click="OnButtonPlayAgainClicked"/>
-            <Button x:Name="buttonMenu" Content="Menu" Width="100" Margin="40 0 40 0" Click="OnButtonMenuClicked"/>
-        </StackPanel>
+    <StackPanel Orientation="Vertical">
+        <Label Content="Spel voorbij!" Style="{DynamicResource TitleFont}" FontSize="40" HorizontalAlignment="Center" Margin="0, 20, 0, 0"/>
+
+        <Label x:Name="labelPlayerOneResult" Content="Player 1 Score:" Style="{DynamicResource TitleFont}" FontSize="16px" Margin="0, 3, 0, 3" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerTwoResult" Content="Player 2 Score:" Style="{DynamicResource TitleFont}" FontSize="16px" Margin="0, 3, 0, 3" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerThreeResult" Content="Player 3 Score:" Style="{DynamicResource TitleFont}" FontSize="16px" Margin="0, 3, 0, 3" HorizontalAlignment="Center"/>
+        <Label x:Name="labelPlayerFourResult" Content="Player 4 Score:" Style="{DynamicResource TitleFont}" FontSize="16px" Margin="0, 3, 0, 3" HorizontalAlignment="Center"/>
+
+        <Control:ImageButton x:Name="buttonPlayAgain" Text="Opnieuw spelen" Width="400" Height="60" Margin="0 20 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
+        <Control:ImageButton x:Name="buttonMenu" Text="Menu" Width="400" Height="60" Margin="0 20 0 0" ImageDefault="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/default.png" ImageHover="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/hover.png" ImageClick="pack://application:,,,/Game;component/Resources/Images/Buttons/Blue/click.png"/>
     </StackPanel>
 </UserControl>

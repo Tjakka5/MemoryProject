@@ -94,6 +94,9 @@ namespace Game.Scripts
 
 		private void OnGameFinished()
 		{
+			foreach (Player player in players)
+				HighscoreData.Add(new HighscoreData.Data(player.Name, player.Score, initialLayout));
+
 			GameFinished?.Invoke(players);
 		}
 

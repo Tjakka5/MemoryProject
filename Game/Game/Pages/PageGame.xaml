@@ -21,6 +21,6 @@
         <control:PlayerView x:Name="playerView_3" Canvas.Bottom="10" Width="150" Height="60" Canvas.Left="550" Canvas.Top="619"/>
         <control:PlayerView x:Name="playerView_4" Canvas.Left="550" Canvas.Top="10" Width="150" Height="60"/>
 
-        <control:Modal x:Name="modal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="700" Height="400" Canvas.Left="295" Canvas.Top="100"/>
+        <control:Modal x:Name="modal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1280" Height="720"/>
     </Canvas>
 </Page>

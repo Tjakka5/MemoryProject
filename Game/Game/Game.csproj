@@ -63,6 +63,12 @@
     <Compile Include="Controls\Card.xaml.cs">
       <DependentUpon>Card.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HighscoreContainer.xaml.cs">
+      <DependentUpon>HighscoreContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Modal.xaml.cs">
       <DependentUpon>Modal.xaml</DependentUpon>
     </Compile>
@@ -87,12 +93,16 @@
     <Compile Include="Pages\PageGame.xaml.cs">
       <DependentUpon>PageGame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageHighscores.xaml.cs">
+      <DependentUpon>PageHighscores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageMenu.xaml.cs">
       <DependentUpon>PageMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageSettings.xaml.cs">
       <DependentUpon>PageSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\HighscoreData.cs" />
     <Compile Include="Scripts\ImageDefinition.cs" />
     <Compile Include="Scripts\ImagePool.cs" />
     <Compile Include="Scripts\Session.cs" />
@@ -102,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HighscoreContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +152,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\PageGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageHighscores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,12 +305,26 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Blue\hover.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Buttons\Blue\click.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\Buttons\Blue\default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\modal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FrontImages\BaseFront.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
