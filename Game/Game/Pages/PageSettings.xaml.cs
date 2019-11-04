@@ -120,20 +120,26 @@ namespace Game.Pages
 		/// <returns></returns>
 		private bool CheckValidStart()
 		{
+			// Check if each textbox is filled in
 			foreach (CustomTextbox textBox in textBoxes)
 			{
 				if (textBox.textbox.Text == string.Empty)
 					return false;
 			}
 
+			// Check if a foreground card was picked
 			if (selectedForeCard == null)
 				return false;
 
+			// Check if a background card was picked
 			if (selectedBackCard == null)
 				return false;
 
-			// More checks?
+			// Check if a board size was picked
+			if (selectedGridSizeButton == null)
+				return false;
 
+			// Return true when it got through all the checks
 			return true;
 		}
 
@@ -229,7 +235,7 @@ namespace Game.Pages
 				backType = ImagePool.BackTypes.POKEMON;
 			else if (selectedBackCard == cardBackVintage)
 				backType = ImagePool.BackTypes.VINTAGE;
-			else if (selectedBackCard == cardBackPokemon)
+			else if (selectedBackCard == cardBackMario)
 				backType = ImagePool.BackTypes.MARIO;
 
 			// Create boar layout
