@@ -23,7 +23,7 @@ namespace Game.Controls
 
 		public virtual void Show(UserControl modelContent)
 		{
-			if (modelContent != null)
+			if (this.modelContent != null)
 				ContainerContent.Children.Remove(modelContent);
 
 			ContainerContent.Children.Add(modelContent);

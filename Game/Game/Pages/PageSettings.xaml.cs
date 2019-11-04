@@ -123,7 +123,7 @@ namespace Game.Pages
 			// Check if each textbox is filled in
 			foreach (CustomTextbox textBox in textBoxes)
 			{
-				if (textBox.textbox.Text == string.Empty)
+				if (string.IsNullOrWhiteSpace(textBox.textbox.Text))
 					return false;
 			}
 
