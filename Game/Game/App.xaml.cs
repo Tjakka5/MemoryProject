@@ -1,8 +1,4 @@
-﻿using Framework.Scheduling;
-using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Threading;
+﻿using System.Windows;
 
 namespace Game
 {
@@ -11,31 +7,6 @@ namespace Game
 	/// </summary>
 	public partial class App : Application
 	{
-		private DispatcherTimer timer = null;
-		private Stopwatch stopwatch = null;
 
-		public App()
-		{
-			timer = new DispatcherTimer()
-			{
-				Interval = TimeSpan.FromSeconds(1 / 120)
-			};
-			timer.Tick += Tick;
-			timer.Start();
-
-			stopwatch = new Stopwatch();
-			//stopwatch.Start();
-		}
-
-		~App()
-		{
-			timer.Tick -= Tick;
-		}
-
-		private void Tick(object sender, EventArgs e)
-		{
-			Scheduler.Update(stopwatch.ElapsedMilliseconds / 1000.0f);
-			stopwatch.Restart();
-		}
 	}
 }

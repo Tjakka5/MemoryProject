@@ -19,20 +19,30 @@ namespace Game
 		{
 			InitializeComponent();
 
+			// Turn off UI for navigation ( Page back, Page forward )
 			ShowsNavigationUI = false;
 			
+			// Start in the menu screen
 			NavigateToMenu();
-			//NavigateToGame(new List<string>() { "Player_1", "Player_2" });
         }
 
+		/// <summary>
+		/// Called on window close
+		/// </summary>
+		/// <param name="args">EventArgs</param>
 		protected override void OnClosed(EventArgs args)
 		{
+			// Hacky code
+			// If the current page is a game page. Tell it to save
 			if (currentPage.GetType() == typeof(PageGame))
 				(currentPage as PageGame).Save();
 
 			base.OnClosed(args);
 		}
 
+		/// <summary>
+		/// Navigates to the menu
+		/// </summary>
 		public void NavigateToMenu()
 		{
 			PageMenu menu = new PageMenu(this);
@@ -41,6 +51,13 @@ namespace Game
 			Navigate(menu);
 		}
 
+		/// <summary>
+		/// Navigate to the game
+		/// </summary>
+		/// <param name="playerNames">List of all player names</param>
+		/// <param name="frontType">Fronttype for the cards</param>
+		/// <param name="backType">Backtype for the cards</param>
+		/// <param name="layout">Layout for the board</param>
 		public void NavigateToGame(List<string> playerNames, ImagePool.FrontTypes frontType, ImagePool.BackTypes backType, Board.Layouts layout)
 		{
 			PageGame game = new PageGame(this);
@@ -50,6 +67,10 @@ namespace Game
 			game.Setup(playerNames, frontType, backType, layout);
 		}
 
+		/// <summary>
+		/// Navigates to game
+		/// </summary>
+		/// <param name="sessionData">Savedata of a session to load</param>
 		public void NavigateToGame(Session.Data sessionData)
 		{
 			PageGame game = new PageGame(this);
@@ -59,6 +80,9 @@ namespace Game
 			game.Load(sessionData);
 		}
 
+		/// <summary>
+		/// Navigates to settings
+		/// </summary>
 		public void NavigateToSettings()
 		{
 			PageSettings settings = new PageSettings(this);
@@ -67,6 +91,9 @@ namespace Game
 			Navigate(settings);
 		}
 
+		/// <summary>
+		/// Navigates to highscores
+		/// </summary>
 		public void NavigateToHighscores()
 		{
 			PageHighscores highscores = new PageHighscores(this);

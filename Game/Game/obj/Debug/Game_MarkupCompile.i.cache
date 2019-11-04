@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\user\Documents\MemoryProject\Game\Game\App.xaml
 15-743337427
 
-38609764883
+301006391654
 13-1505183044
 Controls\Board.xaml;Controls\Card.xaml;Controls\CardSelect.xaml;Controls\CustomTextbox.xaml;Controls\HighscoreContainer.xaml;Controls\ImageButton.xaml;Controls\Modal.xaml;Controls\ModalContent\ModalContentEndResult.xaml;Controls\ModalContent\ModalContentPause.xaml;Controls\PlayerView.xaml;MainWindow.xaml;Pages\PageGame.xaml;Pages\PageHighscores.xaml;Pages\PageMenu.xaml;Pages\PageSettings.xaml;
 
-True
+False
 

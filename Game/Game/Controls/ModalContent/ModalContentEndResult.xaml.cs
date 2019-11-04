@@ -38,6 +38,10 @@ namespace Game.Controls.ModalContent
 			buttonMenu.Clicked += OnButtonMenuClicked;
 		}
 
+		/// <summary>
+		/// Setup the object
+		/// </summary>
+		/// <param name="players">List of players</param>
 		public void Setup(List<Player> players)
 		{
 			// Sort players by score
@@ -64,11 +68,21 @@ namespace Game.Controls.ModalContent
 			}
 		}
 
+		/// <summary>
+		/// On play button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Event</param>
 		private void OnButtonPlayAgainClicked(object sender, RoutedEventArgs e)
 		{
 			ButtonPlayAgainClicked?.Invoke();
 		}
 
+		/// <summary>
+		/// On menu button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Event</param>
 		private void OnButtonMenuClicked(object sender, RoutedEventArgs e)
 		{
 			ButtonMenuClicked?.Invoke();

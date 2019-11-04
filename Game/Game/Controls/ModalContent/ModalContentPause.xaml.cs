@@ -26,16 +26,31 @@ namespace Game.Controls.ModalContent
 			buttonMenu.Clicked += OnButtonMenuClicked;
         }
 
+		/// <summary>
+		/// On restart button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Event</param>
         private void OnButtonRestartClicked(object sender, RoutedEventArgs e)
         {
             ButtonRestartClicked?.Invoke();
         }
 
+		/// <summary>
+		/// On resume button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Event</param>
         private void OnButtonResumeClicked(object sender, RoutedEventArgs e)
         {
             ButtonResumeClicked?.Invoke();
         }
 
+		/// <summary>
+		/// On menu button clicked
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Event</param>
         private void OnButtonMenuClicked(object sender, RoutedEventArgs e)
         {
             ButtonMenuClicked?.Invoke();

@@ -1,14 +1,9 @@
-﻿using Framework.Scheduling;
-using Game.Scripts;
+﻿using Game.Scripts;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Effects;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Game.Controls
@@ -18,6 +13,7 @@ namespace Game.Controls
 	/// </summary>
 	public partial class Card : UserControl
 	{
+		// Serializable data for this class
 		[Serializable]
 		public class Data
 		{
@@ -63,6 +59,10 @@ namespace Game.Controls
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Setup the card
+		/// </summary>
+		/// <param name="imageDefinition">Image definition for the card</param>
 		public void Setup(ImageDefinition imageDefinition)
 		{
 			this.imageDefinition = imageDefinition;
@@ -75,6 +75,10 @@ namespace Game.Controls
 			Hide(0.0f);
 		}
 
+		/// <summary>
+		/// Load the card from data
+		/// </summary>
+		/// <param name="data">Data to load from</param>
 		public void Load(Data data)
 		{
 			imageDefinition = data.imageDefinition;
@@ -90,6 +94,10 @@ namespace Game.Controls
 				Remove();
 		}
 
+		/// <summary>
+		/// Exports the object as serializable data
+		/// </summary>
+		/// <returns></returns>
 		public Data GetData()
 		{
 			return new Data(
@@ -99,6 +107,10 @@ namespace Game.Controls
 			);
 		}
 
+		/// <summary>
+		/// Shows the card
+		/// </summary>
+		/// <param name="animationDuration">Duration for the show animation</param>
 		public void Show(float animationDuration = 0.2f)
 		{
 			State = ViewState.FRONT;
@@ -111,6 +123,10 @@ namespace Game.Controls
 			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
+		/// <summary>
+		/// Hides the card
+		/// </summary>
+		/// <param name="animationDuration">Duration for the hide animation</param>
 		public void Hide(float animationDuration = 0.2f)
 		{
 			State = ViewState.BACK;
@@ -123,19 +139,28 @@ namespace Game.Controls
 			BeginAnimation(Rectangle.MarginProperty, thicknessAnimation);
 		}
 
+		/// <summary>
+		/// Removes the card from the playing field
+		/// </summary>
 		public void Remove()
 		{
 			isRemoved = true;
 			Visibility = Visibility.Hidden;
 		}
 
+		/// <summary>
+		/// On mouse down
+		/// </summary>
+		/// <param name="e">Event</param>
 		protected override void OnMouseDown(MouseButtonEventArgs e)
 		{
 			base.OnMouseDown(e);
 
+			// Check if clicked button was the left button
 			if (e.ChangedButton != MouseButton.Left)
 				return;
 
+			// Emit a clicked event
 			Clicked?.Invoke(this);
 		}
 	}
