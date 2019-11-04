@@ -24,7 +24,7 @@
             <Label Content="Justin van der Leij." Style="{StaticResource TitleFont}" FontSize="12"/>
             <Label Content="Maurice Jeeninga." Style="{StaticResource TitleFont}" FontSize="12"/>
             <Label Content="Auke Hoeksma." Style="{StaticResource TitleFont}" FontSize="12"/>
-            <Label Content="Hannah Noor." Style="{StaticResource TitleFont}" FontSize="12"/>
+            <Label Content="Hannah Schonewille." Style="{StaticResource TitleFont}" FontSize="12"/>
             <Label Content="Marijke Plantinga." Style="{StaticResource TitleFont}" FontSize="12"/>
         </StackPanel>
     </StackPanel>
