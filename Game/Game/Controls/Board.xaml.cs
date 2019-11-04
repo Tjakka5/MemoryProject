@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -225,16 +226,16 @@ namespace Game.Controls
 			if (clickedCards.Count != 2)
 				return;
 
-			Scheduler.Schedule(CheckCardsRoutine());
+			CheckCards();
 		}
 
-		private IEnumerator<YieldCommand> CheckCardsRoutine()
+		private async void CheckCards()
 		{
 			// Start checking
 			IsChecking = true;
 
 			// Wait 1 second
-			yield return new YieldForSeconds(1);
+			await Task.Delay(1000);
 
 			// Check if all cards have same id
 			int id = clickedCards[0].Id;
